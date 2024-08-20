@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { getMovies } from '../utils/api';
-import MovieList from '../components/movie-list';
+import MovieList from '../components/movie-list/movie-list';
 import Layout from '@/components/layout/layout';
+import Cover from './cover';
 
 const HomePage = () => {
   const [newestMovies, setNewestMovies] = useState([]);
@@ -20,7 +21,9 @@ const HomePage = () => {
 
   return (
     <Layout>
-      <section className='py-8'>
+      <Cover />
+
+      <section className='py-8 pt-[814px]'>
         <h2 className='text-2xl font-bold mb-4'>Newest Movies</h2>
         <MovieList movies={newestMovies} />
       </section>

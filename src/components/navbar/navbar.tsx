@@ -14,7 +14,11 @@ const Navbar = () => {
   };
 
   return (
-    <header className='flex items-center justify-between sm:px-8 lg:px-16 px-40 py-6 border-b border-b-light border-opacity-5'>
+    <header
+      className={`z-10 absolute top-0 left-0 right-0 flex items-center justify-between sm:px-8 lg:px-16 px-40 py-2 ${
+        router.pathname === '/' ? 'bg-transparent' : 'bg-primary'
+      }`}
+    >
       <Logo />
       <Links />
       <div className='flex items-center space-x-4'>

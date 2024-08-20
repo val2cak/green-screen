@@ -4,7 +4,7 @@ import MovieList from '../../components/movie-list';
 import { getMovies } from '../../utils/api';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Layout from '@/components/layout/layout';
-import MovieCard from '@/components/movie-card';
+import MovieCard from '@/components/movie-card/movie-card';
 
 const MostWatchedPage = () => {
   const [movies, setMovies] = useState<any[]>([]);
@@ -59,7 +59,7 @@ const MostWatchedPage = () => {
           <select
             name='year'
             onChange={handleFilterChange}
-            className='p-2 border rounded'
+            className='px-4 py-2 rounded-lg bg-secondary'
           >
             <option value=''>All Years</option>
             {/* Add more options as needed */}
@@ -71,7 +71,7 @@ const MostWatchedPage = () => {
           <select
             name='genre'
             onChange={handleFilterChange}
-            className='p-2 border rounded'
+            className='px-4 py-2 rounded-lg bg-secondary'
           >
             <option value=''>All Genres</option>
             <option value='28'>Action</option>
@@ -83,7 +83,7 @@ const MostWatchedPage = () => {
           <select
             name='score'
             onChange={handleFilterChange}
-            className='p-2 border rounded'
+            className='px-4 py-2 rounded-lg bg-secondary'
           >
             <option value=''>All Scores</option>
             <option value='8'>8+</option>

@@ -6,7 +6,7 @@
 body,
 html {
   margin: 0;
-  background-color: #1f4935 !important;
+  background-color: rgb(41, 88, 67) !important;
   color: #ecf1f0;
   font-family: 'Montserrat', sans-serif !important;
   overscroll-behavior-y: none;
@@ -23,6 +23,10 @@ html {
 
 #root {
   margin: 0 auto;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 
 .dot-spinner {

@@ -6,14 +6,14 @@ const Links = () => {
   const router = useRouter();
 
   return (
-    <nav className='flex gap-4'>
+    <nav className='flex gap-9 bg-primary rounded-lg px-20 py-3 '>
       {navigationItems.map((link) => (
         <Link
           key={link.id}
           href={link.link}
-          className={`text-light text-sm 2xl:text-base font-medium ${
+          className={`text-light text-md 2xl:text-base font-bold ${
             router.pathname === link.link
-              ? 'opacity-100 border-b-2 border-secondary flex justify-end items-start'
+              ? 'opacity-100'
               : 'opacity-50 hover:opacity-100'
           }`}
         >

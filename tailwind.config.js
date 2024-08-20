@@ -34,8 +34,11 @@ module.exports = {
         secondary: '#1F4935',
         light: '#ECF1F0',
         gray: '#B6B6B6',
+        dark: '#34252F',
       },
-      backgroundImage: () => ({}),
+      backgroundImage: () => ({
+        hero: "url('/images/hero.png')",
+      }),
       lineHeight: {
         3: '1.2rem',
         4: '1.6rem',

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import MovieCard from './movie-card';
+import MovieCard from '../movie-card/movie-card';
 
 type MovieListProps = {
   movies: Array<any>;

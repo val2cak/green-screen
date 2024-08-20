@@ -14,16 +14,16 @@ const locale = {
     next: 'Next',
   },
   home: {
-    title: 'Venture into the Cryptoverse',
-    subtitle: 'Discover your ideal cryptocurrencies exclusively at CoinCat',
-    button: 'Get started',
-    tableHeader: 'Explore the market',
+    title: 'Where Movies Come to Life',
+    subtitle:
+      'Discover a world where every movie is more than just a screen. With GreenScreen, dive into the latest blockbusters, timeless classics, and hidden gems—all curated to bring your cinematic dreams to life. Explore, favorite, and enjoy films like never before.',
+    button: 'Start watching now',
     noDataMessage: 'No data found',
   },
   favorites: {
-    tableHeader: 'Your crypto favorites',
+    tableHeader: 'Your favorites',
     recommendedHeader: 'Recommended for you',
-    findFavoritesButton: 'Find items',
+    findFavoritesButton: 'Find movies',
     noDataMessage: 'You have not added any favorites yet',
   },
   pageNotFound: {

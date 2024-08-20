@@ -3,6 +3,7 @@ import { getMovies } from '../../utils/api';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Layout from '@/components/layout/layout';
 import MovieCard from '@/components/movie-card/movie-card';
+import Button from '@/components/button/button';
 
 type Genre = {
   id: number;
@@ -71,6 +72,17 @@ const MostWatchedPage = () => {
     setHasMore(true);
   };
 
+  const resetMovies = () => {
+    setPage(1);
+    setMovies([]);
+    setHasMore(true);
+    setFilters({
+      year: '',
+      genre: '',
+      score: '',
+    });
+  };
+
   return (
     <Layout>
       <div className='py-8'>
@@ -81,6 +93,7 @@ const MostWatchedPage = () => {
             name='year'
             onChange={handleFilterChange}
             className='px-4 py-2 rounded-lg bg-secondary'
+            value={filters.year}
           >
             <option value=''>All Years</option>
             <option value='2023'>2023</option>
@@ -92,6 +105,7 @@ const MostWatchedPage = () => {
             name='genre'
             onChange={handleFilterChange}
             className='px-4 py-2 rounded-lg bg-secondary'
+            value={filters.genre}
           >
             <option value=''>All Genres</option>
             {genres.map((genre) => (
@@ -105,12 +119,15 @@ const MostWatchedPage = () => {
             name='score'
             onChange={handleFilterChange}
             className='px-4 py-2 rounded-lg bg-secondary'
+            value={filters.score}
           >
             <option value=''>All Scores</option>
             <option value='8'>8+</option>
             <option value='7'>7+</option>
             <option value='6'>6+</option>
           </select>
+
+          <Button text='Reset' handleOnClick={resetMovies} />
         </div>
 
         <InfiniteScroll

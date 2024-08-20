@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
-import Navbar from '../../components/navbar/navbar';
-import MovieList from '../../components/movie-list';
 import { getMovies } from '../../utils/api';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Layout from '@/components/layout/layout';
 import MovieCard from '@/components/movie-card/movie-card';
+
+type Genre = {
+  id: number;
+  name: string;
+};
 
 const MostWatchedPage = () => {
   const [movies, setMovies] = useState<any[]>([]);
@@ -15,6 +18,12 @@ const MostWatchedPage = () => {
     genre: '',
     score: '',
   });
+  const [genres, setGenres] = useState<Genre[]>([]);
+
+  const fetchGenres = async () => {
+    const data = await getMovies('/genre/movie/list');
+    return data.genres;
+  };
 
   const fetchMovies = async (page: number, filters: any) => {
     const params: any = { page };
@@ -27,9 +36,21 @@ const MostWatchedPage = () => {
   };
 
   useEffect(() => {
+    const loadInitialData = async () => {
+      const genreList = await fetchGenres();
+      setGenres(genreList);
+
+      const newMovies = await fetchMovies(page, filters);
+      setMovies(newMovies);
+    };
+
+    loadInitialData();
+  }, []);
+
+  useEffect(() => {
     const loadMovies = async () => {
       const newMovies = await fetchMovies(page, filters);
-      setMovies((prevMovies: any) => [...prevMovies, ...newMovies]);
+      setMovies((prevMovies) => [...prevMovies, ...newMovies]);
       if (newMovies.length === 0) setHasMore(false);
     };
 
@@ -45,9 +66,9 @@ const MostWatchedPage = () => {
       ...filters,
       [e.target.name]: e.target.value,
     });
-    setPage(1); // Reset page when filters change
-    setMovies([]); // Clear current movies
-    setHasMore(true); // Reset infinite scroll
+    setPage(1);
+    setMovies([]);
+    setHasMore(true);
   };
 
   return (
@@ -62,7 +83,6 @@ const MostWatchedPage = () => {
             className='px-4 py-2 rounded-lg bg-secondary'
           >
             <option value=''>All Years</option>
-            {/* Add more options as needed */}
             <option value='2023'>2023</option>
             <option value='2022'>2022</option>
             <option value='2021'>2021</option>
@@ -74,10 +94,11 @@ const MostWatchedPage = () => {
             className='px-4 py-2 rounded-lg bg-secondary'
           >
             <option value=''>All Genres</option>
-            <option value='28'>Action</option>
-            <option value='35'>Comedy</option>
-            <option value='18'>Drama</option>
-            {/* Add more genres as needed */}
+            {genres.map((genre) => (
+              <option key={genre.id} value={genre.id}>
+                {genre.name}
+              </option>
+            ))}
           </select>
 
           <select
@@ -98,7 +119,7 @@ const MostWatchedPage = () => {
           hasMore={hasMore}
           loader={<h4>Loading...</h4>}
           endMessage={<p>No more movies to show</p>}
-          className='grid grid-cols-4'
+          className='grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-cols-4 2xl:grid-cols-5'
         >
           {movies.map((movie, index) => (
             <MovieCard key={`${movie.id}-${index}`} movie={movie} />

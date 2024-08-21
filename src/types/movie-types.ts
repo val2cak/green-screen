@@ -16,9 +16,9 @@ export interface MovieType {
 }
 
 export interface FiltersType {
-  year: string | string[];
-  genre: string | string[];
-  score: string | string[];
+  year: string;
+  genre: string;
+  score: string;
 }
 
 export interface GenreType {

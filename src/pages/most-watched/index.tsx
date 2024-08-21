@@ -19,14 +19,8 @@ const MostWatchedPage = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [filters, setFilters] = useState<FiltersType>(initialFilters);
-  const [genres, setGenres] = useState<GenreType[]>([]);
 
   const router = useRouter();
-
-  const fetchGenres = async () => {
-    const data = await getMovies('/genre/movie/list');
-    return data.genres;
-  };
 
   const fetchMovies = async (page: number, filters: FiltersType) => {
     const params: any = { page };
@@ -40,9 +34,6 @@ const MostWatchedPage = () => {
 
   useEffect(() => {
     const loadInitialData = async () => {
-      const genreList = await fetchGenres();
-      setGenres(genreList);
-
       const queryFilters: FiltersType = {
         year: router.query.year || '',
         genre: router.query.genre || '',
@@ -128,7 +119,6 @@ const MostWatchedPage = () => {
 
         <Filters
           filters={filters}
-          genres={genres}
           handleFilterChange={handleFilterChange}
           resetMovies={resetMovies}
         />
@@ -139,7 +129,7 @@ const MostWatchedPage = () => {
           hasMore={hasMore}
           loader={<h4>Loading...</h4>}
           endMessage={<p>No more movies to show</p>}
-          className='grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-cols-4 2xl:grid-cols-5 !overflow-y-hidden'
+          className='grid gap-y-4 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 grid-cols-5 2xl:grid-cols-6 !overflow-y-hidden'
         >
           {movies.map((movie, index) => (
             <MovieCard key={`${movie.id}-${index}`} movie={movie} />

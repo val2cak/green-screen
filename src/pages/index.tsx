@@ -1,31 +1,28 @@
 import { useEffect, useState } from 'react';
-import { getMovies } from '../utils/api';
-import MovieList from '../components/movie-list/movie-list';
+import Image from 'next/image';
+
+import { getMovies } from '@/utils/api';
+import MovieList from '@/components/movie-list/movie-list';
 import Layout from '@/components/layout/layout';
 import Cover from './cover';
 import MovieCard from '@/components/movie-card/movie-card';
-import one from '../../public/images/one-dark.png';
-import two from '../../public/images/two-dark.png';
-import three from '../../public/images/three-dark.png';
-import Image from 'next/image';
+import one from '/public/images/one-dark.png';
+import two from '/public/images/two-dark.png';
+import three from '/public/images/three-dark.png';
 import Dropdown from '@/components/dropdown/dropdown';
-
-type Provider = {
-  provider_id: number;
-  provider_name: string;
-};
+import { MovieType, ProviderType } from '@/types/movie-types';
 
 const HomePage = () => {
-  const [newestMovies, setNewestMovies] = useState([]);
-  const [top3Movies, setTop3Movies] = useState([]);
-  const [providers, setProviders] = useState<Provider[]>([]);
+  const [newestMovies, setNewestMovies] = useState<MovieType[]>([]);
+  const [top3Movies, setTop3Movies] = useState<MovieType[]>([]);
+  const [providers, setProviders] = useState<ProviderType[]>([]);
   const [selectedProvider, setSelectedProvider] = useState<number | null>(8);
 
-  const [actionMovies, setActionMovies] = useState([]);
-  const [comedyMovies, setComedyMovies] = useState([]);
-  const [horrorMovies, setHorrorMovies] = useState([]);
-  const [dramaMovies, setDramaMovies] = useState([]);
-  const [scifiMovies, setScifiMovies] = useState([]);
+  const [actionMovies, setActionMovies] = useState<MovieType[]>([]);
+  const [comedyMovies, setComedyMovies] = useState<MovieType[]>([]);
+  const [horrorMovies, setHorrorMovies] = useState<MovieType[]>([]);
+  const [dramaMovies, setDramaMovies] = useState<MovieType[]>([]);
+  const [scifiMovies, setScifiMovies] = useState<MovieType[]>([]);
 
   useEffect(() => {
     const fetchInitialData = async () => {

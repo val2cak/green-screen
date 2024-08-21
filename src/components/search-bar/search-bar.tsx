@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { FaSearch } from 'react-icons/fa';
 import Image from 'next/image';
 import debounce from 'lodash/debounce';
 import Link from 'next/link';
@@ -31,7 +30,7 @@ const SearchBar = () => {
     }
   }, [searchQuery, searchMoviesDebounced]);
 
-  const handleSearch = (query) => {
+  const handleSearch = (query: string) => {
     setSearchQuery(query);
   };
 

@@ -1,16 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-
-import { getMovies } from '../../utils/api';
 import InfiniteScroll from 'react-infinite-scroll-component';
+
+import { getMovies } from '@/utils/api';
 import Layout from '@/components/layout/layout';
 import MovieCard from '@/components/movie-card/movie-card';
 import Filters from './components/filters';
-
-type Genre = {
-  id: number;
-  name: string;
-};
+import { FiltersType, GenreType } from '@/types/movie-types';
 
 export const initialFilters = {
   year: '',
@@ -22,8 +18,8 @@ const MostWatchedPage = () => {
   const [movies, setMovies] = useState<any[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [filters, setFilters] = useState(initialFilters);
-  const [genres, setGenres] = useState<Genre[]>([]);
+  const [filters, setFilters] = useState<FiltersType>(initialFilters);
+  const [genres, setGenres] = useState<GenreType[]>([]);
 
   const router = useRouter();
 
@@ -32,7 +28,7 @@ const MostWatchedPage = () => {
     return data.genres;
   };
 
-  const fetchMovies = async (page: number, filters: any) => {
+  const fetchMovies = async (page: number, filters: FiltersType) => {
     const params: any = { page };
     if (filters.year) params['primary_release_year'] = filters.year;
     if (filters.genre) params['with_genres'] = filters.genre;
@@ -47,7 +43,7 @@ const MostWatchedPage = () => {
       const genreList = await fetchGenres();
       setGenres(genreList);
 
-      const queryFilters = {
+      const queryFilters: FiltersType = {
         year: router.query.year || '',
         genre: router.query.genre || '',
         score: router.query.score || '',
@@ -92,7 +88,7 @@ const MostWatchedPage = () => {
     setPage((prevPage) => prevPage + 1);
   };
 
-  const updateQueryParams = (newFilters) => {
+  const updateQueryParams = (newFilters: FiltersType) => {
     const query = { ...router.query };
 
     Object.keys(newFilters).forEach((key) => {

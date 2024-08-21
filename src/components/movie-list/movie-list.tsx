@@ -1,15 +1,17 @@
-import React, { useEffect, useRef } from 'react';
-import MovieCard from '../movie-card/movie-card';
+import { FC, useEffect, useRef } from 'react';
 import {
   IoArrowBack as ArrowBack,
   IoArrowForward as ArrowForward,
 } from 'react-icons/io5';
 
-type MovieListProps = {
-  movies: Array<any>;
-};
+import MovieCard from '../movie-card/movie-card';
+import { MovieType } from '@/types/movie-types';
 
-const MovieList: React.FC<MovieListProps> = ({ movies }) => {
+interface Props {
+  movies: MovieType[];
+}
+
+const MovieList: FC<Props> = ({ movies }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const extendedMovies = [...movies, ...movies];

@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import {
   IoIosSearch as SearchIcon,
   IoMdClose as ClearIcon,
 } from 'react-icons/io';
 
-const SearchInput = ({ onSearch }) => {
+interface Props {
+  onSearch: (query: string) => void;
+}
+
+const SearchInput: FC<Props> = ({ onSearch }) => {
   const [userInput, setUserInput] = useState('');
 
   const handleChange = (e) => {

@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import { navigationItems } from '@/constants/navigation-items';
 import { useRouter } from 'next/router';
+
+import { navigationItems } from '@/constants/navigation-items';
 
 const Links = () => {
   const router = useRouter();

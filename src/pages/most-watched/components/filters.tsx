@@ -2,15 +2,11 @@ import React from 'react';
 
 import Dropdown from '@/components/dropdown/dropdown';
 import Button from '@/components/button/button';
-
-type Genre = {
-  id: number;
-  name: string;
-};
+import { FiltersType, GenreType } from '@/types/movie-types';
 
 type FiltersProps = {
-  filters: { year: string; genre: string; score: string };
-  genres: Genre[];
+  filters: FiltersType;
+  genres: GenreType[];
   handleFilterChange: (name: string, value: string) => void;
   resetMovies: () => void;
 };

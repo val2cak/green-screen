@@ -1,6 +1,7 @@
+import { IoPlay as PlayIcon } from 'react-icons/io5';
+
 import Button from '@/components/button/button';
 import locale from '@/localization/locale';
-import { IoPlay as PlayIcon } from 'react-icons/io5';
 
 const Cover = () => {
   const { title, subtitle, button } = locale.home;

@@ -1,15 +1,17 @@
-import React from 'react';
+import { FC } from 'react';
 import Link from 'next/link';
 import { IoMdHeartEmpty as EmptyHeartIcon } from 'react-icons/io';
 import { IoStar as StarIcon } from 'react-icons/io5';
 import Image from 'next/image';
+
 import { loadImage } from '@/utils/load-img';
+import { MovieType } from '@/types/movie-types';
 
-type MovieCardProps = {
-  movie: any;
-};
+interface Props {
+  movie: MovieType;
+}
 
-const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
+const MovieCard: FC<Props> = ({ movie }) => {
   return (
     <div className='bg-secondary rounded-lg p-4 shadow-lg w-[224px] flex flex-col gap-4'>
       <Link href={`/movie/${movie.id}`} className='block w-[192px] h-[274px]'>

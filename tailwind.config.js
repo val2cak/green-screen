@@ -35,7 +35,7 @@ module.exports = {
         tertiary: '#b5cd3b',
         light: '#ECF1F0',
         gray: '#B6B6B6',
-        dark: '#34252F',
+        dark: '#061105',
       },
       backgroundImage: () => ({
         hero: "url('/images/hero.png')",

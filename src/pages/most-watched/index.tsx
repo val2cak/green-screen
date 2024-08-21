@@ -1,25 +1,31 @@
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+
 import { getMovies } from '../../utils/api';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Layout from '@/components/layout/layout';
 import MovieCard from '@/components/movie-card/movie-card';
-import Button from '@/components/button/button';
+import Filters from './components/filters';
 
 type Genre = {
   id: number;
   name: string;
 };
 
+export const initialFilters = {
+  year: '',
+  genre: '',
+  score: '',
+};
+
 const MostWatchedPage = () => {
   const [movies, setMovies] = useState<any[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [filters, setFilters] = useState({
-    year: '',
-    genre: '',
-    score: '',
-  });
+  const [filters, setFilters] = useState(initialFilters);
   const [genres, setGenres] = useState<Genre[]>([]);
+
+  const router = useRouter();
 
   const fetchGenres = async () => {
     const data = await getMovies('/genre/movie/list');
@@ -41,14 +47,24 @@ const MostWatchedPage = () => {
       const genreList = await fetchGenres();
       setGenres(genreList);
 
-      const newMovies = await fetchMovies(page, filters);
+      const queryFilters = {
+        year: router.query.year || '',
+        genre: router.query.genre || '',
+        score: router.query.score || '',
+      };
+
+      setFilters(queryFilters);
+
+      const newMovies = await fetchMovies(page, queryFilters);
       setMovies(newMovies);
     };
 
     loadInitialData();
-  }, []);
+  }, [router.query]);
 
   useEffect(() => {
+    if (page === 1) return;
+
     const loadMovies = async () => {
       const newMovies = await fetchMovies(page, filters);
       setMovies((prevMovies) => [...prevMovies, ...newMovies]);
@@ -58,29 +74,55 @@ const MostWatchedPage = () => {
     loadMovies();
   }, [page, filters]);
 
+  useEffect(() => {
+    if (router.isReady) {
+      const newFilters = {
+        year: router.query.year || '',
+        genre: router.query.genre || '',
+        score: router.query.score || '',
+      };
+      setFilters(newFilters);
+      setPage(1);
+      setMovies([]);
+      setHasMore(true);
+    }
+  }, [router.query]);
+
   const handleLoadMore = () => {
     setPage((prevPage) => prevPage + 1);
   };
 
-  const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFilters({
-      ...filters,
-      [e.target.name]: e.target.value,
+  const updateQueryParams = (newFilters) => {
+    const query = { ...router.query };
+
+    Object.keys(newFilters).forEach((key) => {
+      if (newFilters[key]) {
+        query[key] = newFilters[key];
+      } else {
+        delete query[key];
+      }
     });
+
+    router.push({ pathname: router.pathname, query }, undefined, {
+      shallow: true,
+    });
+  };
+
+  const handleFilterChange = (name: string, value: string) => {
+    const newFilters = { ...filters, [name]: value };
+    setFilters(newFilters);
     setPage(1);
     setMovies([]);
     setHasMore(true);
+    updateQueryParams(newFilters);
   };
 
   const resetMovies = () => {
     setPage(1);
     setMovies([]);
     setHasMore(true);
-    setFilters({
-      year: '',
-      genre: '',
-      score: '',
-    });
+    setFilters(initialFilters);
+    updateQueryParams(initialFilters);
   };
 
   return (
@@ -88,47 +130,12 @@ const MostWatchedPage = () => {
       <div className='py-8'>
         <h1 className='text-3xl font-bold mb-4'>Most Watched Movies</h1>
 
-        <div className='flex space-x-4 mb-8'>
-          <select
-            name='year'
-            onChange={handleFilterChange}
-            className='px-4 py-2 rounded-lg bg-secondary'
-            value={filters.year}
-          >
-            <option value=''>All Years</option>
-            <option value='2023'>2023</option>
-            <option value='2022'>2022</option>
-            <option value='2021'>2021</option>
-          </select>
-
-          <select
-            name='genre'
-            onChange={handleFilterChange}
-            className='px-4 py-2 rounded-lg bg-secondary'
-            value={filters.genre}
-          >
-            <option value=''>All Genres</option>
-            {genres.map((genre) => (
-              <option key={genre.id} value={genre.id}>
-                {genre.name}
-              </option>
-            ))}
-          </select>
-
-          <select
-            name='score'
-            onChange={handleFilterChange}
-            className='px-4 py-2 rounded-lg bg-secondary'
-            value={filters.score}
-          >
-            <option value=''>All Scores</option>
-            <option value='8'>8+</option>
-            <option value='7'>7+</option>
-            <option value='6'>6+</option>
-          </select>
-
-          <Button text='Reset' handleOnClick={resetMovies} />
-        </div>
+        <Filters
+          filters={filters}
+          genres={genres}
+          handleFilterChange={handleFilterChange}
+          resetMovies={resetMovies}
+        />
 
         <InfiniteScroll
           dataLength={movies.length}

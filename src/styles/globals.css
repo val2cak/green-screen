@@ -19,6 +19,7 @@ html {
   );
   background-repeat: no-repeat;
   min-height: 100dvh !important;
+  -ms-overflow-style: 'none';
 }
 
 #root {

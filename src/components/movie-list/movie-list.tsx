@@ -1,5 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import MovieCard from '../movie-card/movie-card';
+import {
+  IoArrowBack as ArrowBack,
+  IoArrowForward as ArrowForward,
+} from 'react-icons/io5';
 
 type MovieListProps = {
   movies: Array<any>;
@@ -8,18 +12,29 @@ type MovieListProps = {
 const MovieList: React.FC<MovieListProps> = ({ movies }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Duplicate the movie list for infinite scroll effect
   const extendedMovies = [...movies, ...movies];
 
-  const handleScroll = () => {
+  const scrollLeft = () => {
     const container = containerRef.current;
     if (container) {
-      const { scrollLeft, scrollWidth, clientWidth } = container;
+      container.scrollBy({ left: -300, behavior: 'smooth' });
 
-      // Check if the user has reached the end of the scroll
-      if (scrollLeft + clientWidth >= scrollWidth - 1) {
-        // Reset scroll to the beginning of the original list
-        container.scrollLeft = 0;
+      if (container.scrollLeft <= 0) {
+        container.scrollLeft += container.scrollWidth / 2;
+      }
+    }
+  };
+
+  const scrollRight = () => {
+    const container = containerRef.current;
+    if (container) {
+      container.scrollBy({ left: 300, behavior: 'smooth' });
+
+      if (
+        container.scrollLeft + container.clientWidth >=
+        container.scrollWidth
+      ) {
+        container.scrollLeft -= container.scrollWidth / 2;
       }
     }
   };
@@ -27,20 +42,36 @@ const MovieList: React.FC<MovieListProps> = ({ movies }) => {
   useEffect(() => {
     const container = containerRef.current;
     if (container) {
-      container.addEventListener('scroll', handleScroll);
+      container.scrollLeft = container.scrollWidth / 4;
     }
-    return () => {
-      if (container) {
-        container.removeEventListener('scroll', handleScroll);
-      }
-    };
   }, []);
 
   return (
-    <div ref={containerRef} className='flex flex-row gap-4 overflow-x-auto'>
-      {extendedMovies.map((movie, index) => (
-        <MovieCard key={`${movie.id}-${index}`} movie={movie} />
-      ))}
+    <div className='relative'>
+      <button
+        onClick={scrollLeft}
+        className='absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10'
+      >
+        <div className='bg-secondary p-2 rounded-lg opacity-90'>
+          <ArrowBack className='text-xl' />
+        </div>
+      </button>
+      <div
+        ref={containerRef}
+        className='flex flex-row gap-4 overflow-hidden scroll-smooth'
+      >
+        {extendedMovies.map((movie, index) => (
+          <MovieCard key={`${movie.id}-${index}`} movie={movie} />
+        ))}
+      </div>
+      <button
+        onClick={scrollRight}
+        className='absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10'
+      >
+        <div className='bg-secondary p-2 rounded-lg opacity-90'>
+          <ArrowForward className='text-xl' />
+        </div>
+      </button>
     </div>
   );
 };

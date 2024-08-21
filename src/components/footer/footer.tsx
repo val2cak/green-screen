@@ -15,14 +15,14 @@ const Footer = () => {
         <span className='text-gray'>{allRightsReserved}</span>
       </div>
 
-      <ul className='flex flex-col gap-2 justify-center'>
+      <ul className='flex flex-col gap-4 justify-center'>
         <span className='font-semibold tracking-wider text-gray'>
           {services}
         </span>
         {navigationItems?.map((route, index) => (
           <Fragment key={index}>
             <li className='text-base font-normal opacity-70 tracking-wider'>
-              <Link href={route.link} className='hover:text-secondary'>
+              <Link href={route.link} className='hover:text-tertiary'>
                 {route.text}
               </Link>
             </li>

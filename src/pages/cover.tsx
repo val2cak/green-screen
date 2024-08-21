@@ -5,6 +5,13 @@ import { IoPlay as PlayIcon } from 'react-icons/io5';
 const Cover = () => {
   const { title, subtitle, button } = locale.home;
 
+  const scrollToMovies = () => {
+    const moviesElement = document.getElementById('movies-list');
+    if (moviesElement) {
+      moviesElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className='absolute top-0 left-0 bg-hero bg-cover w-full sm:h-[21.5rem] h-[750px] z-1 2xl:bg-center'>
       <div className='w-full h-full sm:px-8 px-40 2xl:px-56 pb-36 flex flex-col gap-4 items-center justify-end'>
@@ -12,7 +19,7 @@ const Cover = () => {
           {title}
         </div>
         <div className='opacity-80 w-[85%] text-center'>{subtitle}</div>
-        <Button text={button} Icon={PlayIcon} />
+        <Button text={button} Icon={PlayIcon} handleOnClick={scrollToMovies} />
       </div>
     </div>
   );

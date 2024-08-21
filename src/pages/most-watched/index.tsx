@@ -136,7 +136,7 @@ const MostWatchedPage = () => {
           hasMore={hasMore}
           loader={<h4>Loading...</h4>}
           endMessage={<p>No more movies to show</p>}
-          className='grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-cols-4 2xl:grid-cols-5'
+          className='grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-cols-4 2xl:grid-cols-5 !overflow-y-hidden'
         >
           {movies.map((movie, index) => (
             <MovieCard key={`${movie.id}-${index}`} movie={movie} />

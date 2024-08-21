@@ -3,6 +3,12 @@ import { getMovies } from '../utils/api';
 import MovieList from '../components/movie-list/movie-list';
 import Layout from '@/components/layout/layout';
 import Cover from './cover';
+import MovieCard from '@/components/movie-card/movie-card';
+import one from '../../public/images/one.png';
+import two from '../../public/images/two.png';
+import three from '../../public/images/three.png';
+import Image from 'next/image';
+import Dropdown from '@/components/dropdown/dropdown';
 
 type Provider = {
   provider_id: number;
@@ -69,8 +75,11 @@ const HomePage = () => {
     fetchTop3Movies();
   }, [selectedProvider]);
 
-  const handleProviderChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedProvider(Number(e.target.value));
+  const handleProviderChange = (providerName: string) => {
+    const provider = providers.find((p) => p.provider_name === providerName);
+    if (provider) {
+      setSelectedProvider(provider.provider_id);
+    }
   };
 
   return (
@@ -78,34 +87,47 @@ const HomePage = () => {
       <Cover />
 
       <section className='py-8 pt-[814px]'>
-        <h2 className='text-2xl font-bold mb-4'>Newest Movies</h2>
+        <h2 className='text-2xl font-bold mb-4' id='movies-list'>
+          Newest Movies
+        </h2>
         <MovieList movies={newestMovies} />
       </section>
 
       <section className='py-8'>
-        <h2 className='text-2xl font-bold mb-4'>
-          Top 3 Movies by Streaming Service
-        </h2>
-        <div className='mb-4'>
-          <label htmlFor='provider-select' className='mr-2'>
-            Select Streaming Service:
-          </label>
-          <select
-            id='provider-select'
-            onChange={handleProviderChange}
-            value={selectedProvider || ''}
-          >
-            <option value='' disabled>
-              Select a provider
-            </option>
-            {providers.map((provider) => (
-              <option key={provider.provider_id} value={provider.provider_id}>
-                {provider.provider_name}
-              </option>
-            ))}
-          </select>
+        <div className='flex justify-between items-center'>
+          <h2 className='text-2xl font-bold mb-4'>
+            Top 3 Movies by Streaming Service
+          </h2>
+          <Dropdown
+            items={providers.map((provider) => provider.provider_name)}
+            onSelect={handleProviderChange}
+            selectedItem={
+              providers.find((p) => p.provider_id === selectedProvider)
+                ?.provider_name || 'Select'
+            }
+          />
         </div>
-        {selectedProvider && <MovieList movies={top3Movies} />}
+
+        <div className='flex justify-between'>
+          {selectedProvider &&
+            top3Movies.map((movie, index) => (
+              <div className='flex relative' key={index}>
+                <Image
+                  src={
+                    index === 0 ? one.src : index === 1 ? two.src : three.src
+                  }
+                  alt={'one'}
+                  className='h-5/6 absolute z-10'
+                  width={160}
+                  height={250}
+                />
+
+                <div className='pl-28'>
+                  <MovieCard movie={movie} />
+                </div>
+              </div>
+            ))}
+        </div>
       </section>
 
       <section className='py-8'>

@@ -4,9 +4,9 @@ import MovieList from '../components/movie-list/movie-list';
 import Layout from '@/components/layout/layout';
 import Cover from './cover';
 import MovieCard from '@/components/movie-card/movie-card';
-import one from '../../public/images/one.png';
-import two from '../../public/images/two.png';
-import three from '../../public/images/three.png';
+import one from '../../public/images/one-dark.png';
+import two from '../../public/images/two-dark.png';
+import three from '../../public/images/three-dark.png';
 import Image from 'next/image';
 import Dropdown from '@/components/dropdown/dropdown';
 
@@ -116,13 +116,13 @@ const HomePage = () => {
                   src={
                     index === 0 ? one.src : index === 1 ? two.src : three.src
                   }
-                  alt={'one'}
-                  className='h-5/6 absolute z-10'
-                  width={160}
-                  height={250}
+                  alt={'number'}
+                  className='h-full absolute'
+                  width={220}
+                  height={270}
                 />
 
-                <div className='pl-28'>
+                <div className='pl-36 z-20'>
                   <MovieCard movie={movie} />
                 </div>
               </div>

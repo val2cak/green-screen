@@ -5,20 +5,24 @@ import {
   IoArrowForward as ArrowForward,
 } from 'react-icons/io5';
 import { IoMdHeartEmpty as EmptyHeartIcon } from 'react-icons/io';
+import { useRouter } from 'next/router'; // Import useRouter from next/router
 import Image from 'next/image';
 
 import Layout from '@/components/layout/layout';
 import { getMovies } from '@/utils/api';
 import { loadImage } from '@/utils/load-img';
-import { MovieDetailsType, CreditType } from '@/types/movie-types';
+import { MovieDetailsType, CreditType, MovieType } from '@/types/movie-types';
+import MovieList from '@/components/movie-list/movie-list';
 
 type MovieDetailsProps = {
   movie: MovieDetailsType;
+  similarMovies: MovieType[];
 };
 
-const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
+const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 8;
+  const router = useRouter();
 
   const handleNextPage = () => {
     if ((currentPage + 1) * itemsPerPage < movie.credits.cast.length) {
@@ -39,6 +43,15 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
 
   return (
     <Layout>
+      <div className='absolute top-5 left-5 z-30'>
+        <button
+          onClick={() => router.back()}
+          className='p-2 bg-primary rounded-lg text-light shadow-lg opacity-90'
+        >
+          <ArrowBack className='text-xl' />
+        </button>
+      </div>
+
       <div className='relative h-[750px] w-full'>
         <Image
           src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
@@ -58,7 +71,7 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
         </div>
       </div>
 
-      <div className='sm:px-8 lg:px-16 px-40 mx-auto w-full flex gap-12'>
+      <div className='sm:px-8 lg:px-16 px-40 mx-auto w-full h-full flex gap-12'>
         <div className='w-1/2 flex flex-col gap-8'>
           <div className='font-medium flex flex-col gap-4 bg-secondary p-12 rounded-lg'>
             <span className='text-gray'>Description</span>
@@ -169,17 +182,27 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
           </div>
         </div>
       </div>
+
+      <div className='sm:px-8 lg:px-16 px-40 py-8'>
+        <h2 className='text-xl font-bold mb-4'>You Might Also Like</h2>
+        <MovieList movies={similarMovies} />
+      </div>
     </Layout>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.query;
+
   const movie = await getMovies(`/movie/${id}?append_to_response=credits`);
+
+  const similarMoviesResponse = await getMovies(`/movie/${id}/similar`);
+  const similarMovies = similarMoviesResponse.results || [];
 
   return {
     props: {
       movie,
+      similarMovies,
     },
   };
 };

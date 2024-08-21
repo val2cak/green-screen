@@ -3,3 +3,8 @@ export interface NavigationType {
   text: string;
   link: string;
 }
+
+export interface Lookup {
+  id: number;
+  name: string;
+}

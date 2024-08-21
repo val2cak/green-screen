@@ -115,8 +115,6 @@ const MostWatchedPage = () => {
   return (
     <Layout>
       <div className='py-8'>
-        <h1 className='text-3xl font-bold mb-4'>Most Watched Movies</h1>
-
         <Filters
           filters={filters}
           handleFilterChange={handleFilterChange}

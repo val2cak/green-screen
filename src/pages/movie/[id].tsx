@@ -1,6 +1,10 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { GetServerSideProps } from 'next';
-import { FaRegHeart } from 'react-icons/fa';
+import {
+  IoArrowBack as ArrowBack,
+  IoArrowForward as ArrowForward,
+} from 'react-icons/io5';
+import { IoMdHeartEmpty as EmptyHeartIcon } from 'react-icons/io';
 import Image from 'next/image';
 
 import Layout from '@/components/layout/layout';
@@ -13,71 +17,156 @@ type MovieDetailsProps = {
 };
 
 const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 8;
+
+  const handleNextPage = () => {
+    if ((currentPage + 1) * itemsPerPage < movie.credits.cast.length) {
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage((prevPage) => prevPage - 1);
+    }
+  };
+
+  const paginatedCast = movie.credits.cast.slice(
+    currentPage * itemsPerPage,
+    (currentPage + 1) * itemsPerPage
+  );
+
   return (
     <Layout>
-      <div className='flex flex-col md:flex-row'>
+      <div className='relative h-[750px] w-full'>
         <Image
-          src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+          src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
           alt={movie.title}
-          className='rounded-lg w-64'
-          width={64}
-          height={64}
+          layout='fill'
+          objectFit='cover'
+          className='opacity-70'
           loader={loadImage}
         />
-        <Image
-          src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
-          alt={movie.title}
-          className='rounded-lg w-64'
-          width={64}
-          height={64}
-          loader={loadImage}
-        />
-        <div className='md:ml-8'>
-          <h1 className='text-4xl font-bold'>{movie.title}</h1>
-          <p className='mt-4'>{movie.overview}</p>
-          <p className='mt-4'>
-            <strong>Score:</strong> {movie.vote_average}
-          </p>
-          <p className='mt-4'>
-            <strong>Genre:</strong>{' '}
-            {movie.genres.map((genre) => genre.name).join(', ')}
-          </p>
-          <p className='mt-4'>
-            <strong>Duration:</strong> {movie.runtime} minutes
-          </p>
-          <p className='mt-4'>
-            <strong>Country:</strong>{' '}
-            {movie.production_countries
-              .map((country) => country.name)
-              .join(', ')}
-          </p>
-          <button className='mt-4 p-2 bg-red-500 text-white rounded flex items-center'>
-            <FaRegHeart className='mr-2' /> Favorite
-          </button>
+      </div>
+
+      <div className='absolute top-0 left-0 w-full sm:px-8 lg:px-16 px-40 py-16 h-[750px] flex gap-4 flex-col justify-end items-center bg-gradient-to-t from-secondary via-transparent to-secondary text-center'>
+        <span className='text-3xl font-bold'>{movie.title}</span>
+        <span className='text-md opacity-85'>{movie.overview}</span>
+        <div className='bg-secondary p-2 rounded-lg opacity-90'>
+          <EmptyHeartIcon className='text-xl' />
         </div>
       </div>
 
-      <div className='mt-8'>
-        <h2 className='text-2xl font-bold mb-4'>Cast</h2>
-        <div className='grid grid-cols-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4'>
-          {movie.credits.cast.slice(0, 10).map((actor: CreditType) => (
-            <div key={actor.cast_id} className='text-center'>
-              <Image
-                src={
-                  actor.profile_path
-                    ? `https://image.tmdb.org/t/p/w185${actor.profile_path}`
-                    : '/images/default-profile.png' // fallback image if profile_path is null
-                }
-                alt={actor.name}
-                className='rounded-lg mx-auto'
-                width={100}
-                height={100}
-                loader={loadImage}
-              />
-              <p className='mt-2 font-bold'>{actor.name}</p>
-              <p className='text-sm text-gray-500'>as {actor.character}</p>
+      <div className='sm:px-8 lg:px-16 px-40 mx-auto w-full flex gap-12'>
+        <div className='w-1/2 flex flex-col gap-8'>
+          <div className='font-medium flex flex-col gap-4 bg-secondary p-12 rounded-lg'>
+            <span className='text-gray'>Description</span>
+            <div>{movie.overview}</div>
+          </div>
+          <div className='font-medium flex flex-col gap-4 bg-secondary p-12 rounded-lg'>
+            <div className='flex justify-between items-center'>
+              <span className='text-gray'>Cast</span>
+              <div className='flex gap-4'>
+                <button
+                  onClick={handlePrevPage}
+                  disabled={currentPage === 0}
+                  className={`p-2 bg-primary rounded-full ${
+                    currentPage === 0 ? 'opacity-50 cursor-not-allowed' : ''
+                  }`}
+                >
+                  <ArrowBack className='text-white text-lg' />
+                </button>
+                <button
+                  onClick={handleNextPage}
+                  disabled={
+                    (currentPage + 1) * itemsPerPage >=
+                    movie.credits.cast.length
+                  }
+                  className={`p-2 bg-primary rounded-full ${
+                    (currentPage + 1) * itemsPerPage >=
+                    movie.credits.cast.length
+                      ? 'opacity-50 cursor-not-allowed'
+                      : ''
+                  }`}
+                >
+                  <ArrowForward className='text-white text-lg' />
+                </button>
+              </div>
             </div>
-          ))}
+
+            <div className='grid grid-cols-4 sm:grid-cols-3 md:grid-cols-4 gap-4'>
+              {paginatedCast.map((actor: CreditType) => (
+                <div
+                  key={actor.cast_id}
+                  className='flex flex-col gap-2 text-center'
+                >
+                  <Image
+                    src={
+                      actor.profile_path
+                        ? `https://image.tmdb.org/t/p/w185${actor.profile_path}`
+                        : '/images/person.jpg'
+                    }
+                    alt={actor.name}
+                    className='rounded-lg mx-auto shadow-lg w-32 h-40'
+                    width={128}
+                    height={160}
+                    loader={loadImage}
+                  />
+                  <span className='font-bold leading-3'>{actor.name}</span>
+                  <span className='text-sm text-gray-400 leading-3'>
+                    as {actor.character}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className='flex flex-col gap-8 w-1/2 bg-secondary p-12 rounded-lg'>
+          <div className='flex justify-start'>
+            <Image
+              src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+              alt={movie.title}
+              className='rounded-lg shadow-lg'
+              width={300}
+              height={450}
+              loader={loadImage}
+            />
+          </div>
+
+          <div className='md:col-span-2 space-y-6'>
+            <div className='font-medium flex flex-col gap-4'>
+              <p className='flex flex-col'>
+                <span className='text-gray'>Released Year</span>
+                {movie.release_date.split('-')[0]}
+              </p>
+              <p className='flex flex-col'>
+                <span className='text-gray'>Score</span>
+                {movie.vote_average}
+              </p>
+              <p className='flex flex-col'>
+                <span className='text-gray'>Genre</span>
+                {movie.genres.map((genre) => genre.name).join(', ')}
+              </p>
+              <p className='flex flex-col'>
+                <span className='text-gray'>Duration</span>
+                {movie.runtime} minutes
+              </p>
+              <p className='flex flex-col'>
+                <span className='text-gray'>Country</span>
+                {movie.production_countries
+                  .map((country) => country.name)
+                  .join(', ')}
+              </p>
+              <p className='flex flex-col'>
+                <span className='text-gray'>Director</span>
+                {
+                  movie.credits.crew.find((credit) => credit.job === 'Director')
+                    ?.name
+                }
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </Layout>

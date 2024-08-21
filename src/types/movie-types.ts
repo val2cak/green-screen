@@ -26,6 +26,7 @@ export interface CreditType {
   profile_path: string;
   cast_id: number;
   character: string;
+  job: string;
 }
 
 export interface MovieDetailsType extends MovieType {

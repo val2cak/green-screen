@@ -11,7 +11,9 @@ const Navbar = () => {
   return (
     <header
       className={`z-10 absolute top-0 left-0 right-0 flex items-center justify-between sm:px-8 lg:px-16 px-40 py-2 ${
-        router.pathname === '/' ? 'bg-transparent' : 'bg-primary'
+        router.pathname === '/' || router.pathname.includes('movie')
+          ? 'bg-transparent'
+          : 'bg-primary'
       }`}
     >
       <Logo />

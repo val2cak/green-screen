@@ -6,7 +6,7 @@ import { getMovies } from '@/utils/api';
 import Layout from '@/components/layout/layout';
 import MovieCard from '@/components/movie-card/movie-card';
 import Filters from './components/filters';
-import { FiltersType, GenreType } from '@/types/movie-types';
+import { FiltersType } from '@/types/movie-types';
 
 export const initialFilters = {
   year: '',

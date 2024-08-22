@@ -16,6 +16,7 @@ import MovieList from '@/components/movie-list/movie-list';
 import posterPlaceholder from '/public/images/poster-placeholder.jpg';
 import bannerPlaceholder from '/public/images/banner-placeholder.jpg';
 import creditPlaceholder from '/public/images/credit-placeholder.jpg';
+import locale from '@/localization/locale';
 
 type MovieDetailsProps = {
   movie: MovieDetailsType;
@@ -26,6 +27,19 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 8;
   const router = useRouter();
+
+  const {
+    as,
+    cast,
+    country,
+    description,
+    director,
+    duration,
+    genre,
+    releasedYear,
+    score,
+    youMightLike,
+  } = locale.movie;
 
   const handleNextPage = () => {
     if ((currentPage + 1) * itemsPerPage < movie.credits.cast.length) {
@@ -81,12 +95,12 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
       <div className='sm:px-8 lg:px-16 px-40 mx-auto w-full h-full flex gap-12'>
         <div className='w-1/2 flex flex-col gap-8'>
           <div className='font-medium flex flex-col gap-4 bg-secondary p-12 rounded-lg'>
-            <span className='text-gray'>Description</span>
+            <span className='text-gray'>{description}</span>
             <div>{movie.overview}</div>
           </div>
           <div className='font-medium flex flex-col gap-4 bg-secondary p-12 rounded-lg flex-1'>
             <div className='flex justify-between items-center'>
-              <span className='text-gray'>Cast</span>
+              <span className='text-gray'>{cast}</span>
               <div className='flex gap-4'>
                 <button
                   onClick={handlePrevPage}
@@ -135,7 +149,7 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
                   />
                   <span className='font-bold leading-3'>{actor.name}</span>
                   <span className='text-sm text-gray-400 leading-3'>
-                    as {actor.character}
+                    {as} {actor.character}
                   </span>
                 </div>
               ))}
@@ -161,29 +175,29 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
           <div className='md:col-span-2 space-y-6'>
             <div className='font-medium flex flex-col gap-4'>
               <p className='flex flex-col'>
-                <span className='text-gray'>Released Year</span>
+                <span className='text-gray'>{releasedYear}</span>
                 {movie.release_date.split('-')[0]}
               </p>
               <p className='flex flex-col'>
-                <span className='text-gray'>Score</span>
+                <span className='text-gray'>{score}</span>
                 {movie.vote_average}
               </p>
               <p className='flex flex-col'>
-                <span className='text-gray'>Genre</span>
+                <span className='text-gray'>{genre}</span>
                 {movie.genres.map((genre) => genre.name).join(', ')}
               </p>
               <p className='flex flex-col'>
-                <span className='text-gray'>Duration</span>
+                <span className='text-gray'>{duration}</span>
                 {movie.runtime} minutes
               </p>
               <p className='flex flex-col'>
-                <span className='text-gray'>Country</span>
+                <span className='text-gray'>{country}</span>
                 {movie.production_countries
                   .map((country) => country.name)
                   .join(', ')}
               </p>
               <p className='flex flex-col'>
-                <span className='text-gray'>Director</span>
+                <span className='text-gray'>{director}</span>
                 {
                   movie.credits.crew.find((credit) => credit.job === 'Director')
                     ?.name
@@ -195,7 +209,7 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
       </div>
 
       <div className='sm:px-8 lg:px-16 px-40 py-8'>
-        <h2 className='text-xl font-bold mb-4'>You Might Also Like</h2>
+        <h2 className='text-xl font-bold mb-4 capitalize'>{youMightLike}</h2>
         <MovieList movies={similarMovies} />
       </div>
     </Layout>

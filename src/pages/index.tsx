@@ -11,8 +11,21 @@ import two from '/public/images/two-dark.png';
 import three from '/public/images/three-dark.png';
 import Dropdown from '@/components/dropdown/dropdown';
 import { MovieType, ProviderType } from '@/types/movie-types';
+import locale from '@/localization/locale';
 
 const HomePage = () => {
+  const {
+    newest,
+    top3,
+    popularAction,
+    popularComedy,
+    popularDrama,
+    popularHorror,
+    popularSciFi,
+  } = locale.home;
+
+  const { select } = locale.common;
+
   const [newestMovies, setNewestMovies] = useState<MovieType[]>([]);
   const [top3Movies, setTop3Movies] = useState<MovieType[]>([]);
   const [providers, setProviders] = useState<ProviderType[]>([]);
@@ -85,22 +98,20 @@ const HomePage = () => {
 
       <section className='py-8 pt-[724px]'>
         <h2 className='text-2xl font-bold mb-4' id='movies-list'>
-          Newest Movies
+          {newest}
         </h2>
         <MovieList movies={newestMovies} />
       </section>
 
       <section className='py-8'>
         <div className='flex justify-between items-center'>
-          <h2 className='text-2xl font-bold mb-4'>
-            Top 3 Movies by Streaming Service
-          </h2>
+          <h2 className='text-2xl font-bold mb-4'>{top3}</h2>
           <Dropdown
             items={providers.map((provider) => provider.provider_name)}
             onSelect={handleProviderChange}
             selectedItem={
               providers.find((p) => p.provider_id === selectedProvider)
-                ?.provider_name || 'Select'
+                ?.provider_name || select
             }
           />
         </div>
@@ -128,27 +139,27 @@ const HomePage = () => {
       </section>
 
       <section className='py-8'>
-        <h2 className='text-2xl font-bold mb-4'>Popular in Action</h2>
+        <h2 className='text-2xl font-bold mb-4'>{popularAction}</h2>
         <MovieList movies={actionMovies} />
       </section>
 
       <section className='py-8'>
-        <h2 className='text-2xl font-bold mb-4'>Popular in Comedy</h2>
+        <h2 className='text-2xl font-bold mb-4'>{popularComedy}</h2>
         <MovieList movies={comedyMovies} />
       </section>
 
       <section className='py-8'>
-        <h2 className='text-2xl font-bold mb-4'>Popular in Horror</h2>
+        <h2 className='text-2xl font-bold mb-4'>{popularHorror}</h2>
         <MovieList movies={horrorMovies} />
       </section>
 
       <section className='py-8'>
-        <h2 className='text-2xl font-bold mb-4'>Popular in Drama</h2>
+        <h2 className='text-2xl font-bold mb-4'>{popularDrama}</h2>
         <MovieList movies={dramaMovies} />
       </section>
 
       <section className='py-8'>
-        <h2 className='text-2xl font-bold mb-4'>Popular in Sci-Fi</h2>
+        <h2 className='text-2xl font-bold mb-4'>{popularSciFi}</h2>
         <MovieList movies={scifiMovies} />
       </section>
     </Layout>

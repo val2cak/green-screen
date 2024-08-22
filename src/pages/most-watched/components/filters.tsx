@@ -4,6 +4,7 @@ import Dropdown from '@/components/dropdown/dropdown';
 import Button from '@/components/button/button';
 import { FiltersType, GenreType } from '@/types/movie-types';
 import { getMovies } from '@/utils/api';
+import locale from '@/localization/locale';
 
 type FiltersProps = {
   filters: FiltersType;
@@ -16,6 +17,9 @@ const Filters: FC<FiltersProps> = ({
   handleFilterChange,
   resetMovies,
 }) => {
+  const { allYears, allScores, allGenres } = locale.mostWatched;
+  const { reset } = locale.common;
+
   const [genres, setGenres] = useState<GenreType[]>([]);
   const [yearOptions, setYearOptions] = useState<string[]>([]);
 
@@ -42,7 +46,7 @@ const Filters: FC<FiltersProps> = ({
     const newestYear = await fetchNewestYear();
 
     const yearOptions = [
-      'All Years',
+      allYears,
       ...Array.from({ length: newestYear - oldestYear + 1 }, (_, i) =>
         String(newestYear - i)
       ),
@@ -68,26 +72,26 @@ const Filters: FC<FiltersProps> = ({
   }, []);
 
   const scoreOptions = [
-    'All Scores',
+    allScores,
     ...Array.from({ length: 11 }, (_, i) => `${10 - i}${i !== 0 ? '+' : ''}`),
   ];
 
   return (
-    <div className='flex space-x-4 mb-8'>
+    <div className='flex space-x-4 mb-8 capitalize'>
       <Dropdown
         items={yearOptions}
-        selectedItem={filters.year || 'All Years'}
+        selectedItem={filters.year || allYears}
         onSelect={(item) =>
-          handleFilterChange('year', item === 'All Years' ? '' : item)
+          handleFilterChange('year', item === allYears ? '' : item)
         }
       />
 
       <Dropdown
-        items={['All Genres', ...genres.map((genre) => genre.name)]}
+        items={[allGenres, ...genres.map((genre) => genre.name)]}
         selectedItem={
           filters.genre
             ? genres.find((g) => g.id === parseInt(filters.genre))?.name
-            : 'All Genres'
+            : allGenres
         }
         onSelect={(item) => {
           const selectedGenre = genres.find((g) => g.name === item);
@@ -100,14 +104,14 @@ const Filters: FC<FiltersProps> = ({
 
       <Dropdown
         items={scoreOptions}
-        selectedItem={filters.score || 'All Scores'}
+        selectedItem={filters.score || allScores}
         onSelect={(item) =>
-          handleFilterChange('score', item === 'All Scores' ? '' : item)
+          handleFilterChange('score', item === allScores ? '' : item)
         }
       />
 
       <Button
-        text='Reset'
+        text={reset}
         handleOnClick={resetMovies}
         className='!px-8 !py-1 bg-light text-dark hover:!bg-dark hover:text-light rounded-lg !text-base'
       />

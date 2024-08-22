@@ -33,13 +33,15 @@ const Navbar = () => {
 
       <div className='flex gap-4 items-center'>
         <SearchBar />
-        <div onClick={toggleFavorites} className='cursor-pointer'>
-          {hasFavorites ? (
-            <FullHeartIcon className='text-white text-xl' />
-          ) : (
-            <EmptyHeartIcon className='text-white text-xl' />
-          )}
-        </div>
+        {hasFavorites ? (
+          <FullHeartIcon
+            className='text-white text-xl cursor-pointer'
+            onClick={toggleFavorites}
+          />
+        ) : (
+          <EmptyHeartIcon className='text-white text-xl' />
+        )}
+
         {isFavoritesOpen && (
           <FavoritesList onClose={() => setFavoritesOpen(false)} />
         )}

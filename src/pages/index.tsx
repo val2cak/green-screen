@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
@@ -19,6 +20,10 @@ import { MovieType, ProviderType } from '@/types/movie-types';
 import locale from '@/localization/locale';
 
 const HomePage = () => {
+  const Layout = dynamic(() => import('@/components/layout/layout'), {
+    ssr: false,
+  });
+
   const {
     newest,
     top3,

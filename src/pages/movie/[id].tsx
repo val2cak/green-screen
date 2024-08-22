@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import { FC, useState, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import {
@@ -11,7 +12,6 @@ import {
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
-import Layout from '@/components/layout/layout';
 import { fetchMovieDetails, fetchSimilarMovies } from '@/utils/api';
 import { loadImage } from '@/utils/load-img';
 import { MovieDetailsType, CreditType, MovieType } from '@/types/movie-types';
@@ -28,6 +28,10 @@ type MovieDetailsProps = {
 };
 
 const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
+  const Layout = dynamic(() => import('@/components/layout/layout'), {
+    ssr: false,
+  });
+
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 8;
 

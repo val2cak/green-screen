@@ -109,7 +109,7 @@ const Filters: FC<FiltersProps> = ({
       <Button
         text='Reset'
         handleOnClick={resetMovies}
-        className='!px-8 !py-1 bg-light text-dark hover:bg-dark hover:text-light rounded-lg !text-base'
+        className='!px-8 !py-1 bg-light text-dark hover:!bg-dark hover:text-light rounded-lg !text-base'
       />
     </div>
   );

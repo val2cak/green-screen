@@ -5,7 +5,7 @@ import {
   IoArrowForward as ArrowForward,
 } from 'react-icons/io5';
 import { IoMdHeartEmpty as EmptyHeartIcon } from 'react-icons/io';
-import { useRouter } from 'next/router'; // Import useRouter from next/router
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 
 import Layout from '@/components/layout/layout';
@@ -13,6 +13,8 @@ import { getMovies } from '@/utils/api';
 import { loadImage } from '@/utils/load-img';
 import { MovieDetailsType, CreditType, MovieType } from '@/types/movie-types';
 import MovieList from '@/components/movie-list/movie-list';
+import posterPlaceholder from '/public/images/poster-placeholder.jpg';
+import bannerPlaceholder from '/public/images/banner-placeholder.jpg';
 
 type MovieDetailsProps = {
   movie: MovieDetailsType;
@@ -54,7 +56,11 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
 
       <div className='relative h-[750px] w-full'>
         <Image
-          src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
+          src={
+            movie.poster_path !== '' && movie.backdrop_path
+              ? `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`
+              : bannerPlaceholder
+          }
           alt={movie.title}
           layout='fill'
           objectFit='cover'
@@ -77,7 +83,7 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
             <span className='text-gray'>Description</span>
             <div>{movie.overview}</div>
           </div>
-          <div className='font-medium flex flex-col gap-4 bg-secondary p-12 rounded-lg'>
+          <div className='font-medium flex flex-col gap-4 bg-secondary p-12 rounded-lg flex-1'>
             <div className='flex justify-between items-center'>
               <span className='text-gray'>Cast</span>
               <div className='flex gap-4'>
@@ -138,7 +144,11 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
         <div className='flex flex-col gap-8 w-1/2 bg-secondary p-12 rounded-lg'>
           <div className='flex justify-start'>
             <Image
-              src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+              src={
+                movie.poster_path !== '' && movie.poster_path
+                  ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+                  : posterPlaceholder
+              }
               alt={movie.title}
               className='rounded-lg shadow-lg'
               width={300}

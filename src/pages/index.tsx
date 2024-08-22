@@ -83,7 +83,7 @@ const HomePage = () => {
     <Layout>
       <Cover />
 
-      <section className='py-8 pt-[814px]'>
+      <section className='py-8 pt-[724px]'>
         <h2 className='text-2xl font-bold mb-4' id='movies-list'>
           Newest Movies
         </h2>

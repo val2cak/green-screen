@@ -4,6 +4,7 @@ import { IoMdHeartEmpty as EmptyHeartIcon } from 'react-icons/io';
 import { IoStar as StarIcon } from 'react-icons/io5';
 import Image from 'next/image';
 
+import posterPlaceholder from '/public/images/poster-placeholder.jpg';
 import { loadImage } from '@/utils/load-img';
 import { MovieType } from '@/types/movie-types';
 
@@ -16,7 +17,11 @@ const MovieCard: FC<Props> = ({ movie }) => {
     <div className='bg-secondary rounded-lg p-4 shadow-lg w-[224px] flex flex-col gap-4'>
       <Link href={`/movie/${movie.id}`} className='block w-[192px] h-[274px]'>
         <Image
-          src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+          src={
+            movie.poster_path !== '' && movie.poster_path
+              ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+              : posterPlaceholder.src
+          }
           alt={movie.title}
           className='rounded-lg w-[192px] h-[274px]'
           width={192}

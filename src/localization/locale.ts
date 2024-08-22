@@ -50,7 +50,7 @@ const locale = {
   pageNotFound: {
     title: 'Page not found',
     subtitle: 'The page you are looking for does not exist',
-    button: 'Return to home',
+    btnText: 'Return to home',
   },
 };
 

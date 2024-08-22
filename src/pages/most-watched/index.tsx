@@ -7,6 +7,7 @@ import Layout from '@/components/layout/layout';
 import MovieCard from '@/components/movie-card/movie-card';
 import Filters from './components/filters';
 import { FiltersType } from '@/types/movie-types';
+import Loader from '@/components/loader/loader';
 
 export const initialFilters = {
   year: '',
@@ -125,8 +126,7 @@ const MostWatchedPage = () => {
           dataLength={movies.length}
           next={handleLoadMore}
           hasMore={hasMore}
-          loader={<h4>Loading...</h4>}
-          endMessage={<p>No more movies to show</p>}
+          loader={<Loader />}
           className='grid gap-y-4 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 grid-cols-5 2xl:grid-cols-6 !overflow-y-hidden'
         >
           {movies.map((movie, index) => (

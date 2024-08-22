@@ -7,6 +7,7 @@ import { loadImage } from '@/utils/load-img';
 import { getMovies } from '@/utils/api';
 import SearchInput from '@/components/search-bar/components/search-input';
 import posterPlaceholder from '/public/images/poster-placeholder.jpg';
+import Loader from '../loader/loader';
 
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -109,7 +110,7 @@ const SearchBar = () => {
           ref={resultsRef}
         >
           {isSearching ? (
-            <div className='p-4 text-center'>Searching...</div>
+            <Loader />
           ) : (
             <ul>
               {searchResults.map((movie, index) => (

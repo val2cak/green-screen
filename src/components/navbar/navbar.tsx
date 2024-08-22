@@ -1,12 +1,24 @@
+import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { IoMdHeartEmpty as EmptyHeartIcon } from 'react-icons/io';
+import {
+  IoMdHeartEmpty as EmptyHeartIcon,
+  IoMdHeart as FullHeartIcon,
+} from 'react-icons/io';
 
 import Logo from './components/logo';
 import Links from './components/links';
 import SearchBar from '../search-bar/search-bar';
+import FavoritesList from './components/favorites-list';
+import { useFavoritesStore } from '@/store/favorites-store';
 
 const Navbar = () => {
   const router = useRouter();
+  const { favorites } = useFavoritesStore();
+  const [isFavoritesOpen, setFavoritesOpen] = useState(false);
+
+  const toggleFavorites = () => setFavoritesOpen(!isFavoritesOpen);
+
+  const hasFavorites = favorites.length > 0;
 
   return (
     <header
@@ -21,7 +33,16 @@ const Navbar = () => {
 
       <div className='flex gap-4 items-center'>
         <SearchBar />
-        <EmptyHeartIcon className='text-white text-xl' />
+        <div onClick={toggleFavorites} className='cursor-pointer'>
+          {hasFavorites ? (
+            <FullHeartIcon className='text-white text-xl' />
+          ) : (
+            <EmptyHeartIcon className='text-white text-xl' />
+          )}
+        </div>
+        {isFavoritesOpen && (
+          <FavoritesList onClose={() => setFavoritesOpen(false)} />
+        )}
       </div>
     </header>
   );

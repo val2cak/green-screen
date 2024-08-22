@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import {
   IoArrowBack as ArrowBack,
@@ -35,7 +35,13 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
 
   const { favorites, addFavorite, removeFavorite } = useFavoritesStore();
 
-  const isFavorite = favorites.some((fav) => fav.id === movie.id);
+  const [isFavorite, setIsFavorite] = useState(
+    favorites.some((fav) => fav.id === movie.id)
+  );
+
+  useEffect(() => {
+    setIsFavorite(favorites.some((fav) => fav.id === movie.id));
+  }, [favorites, movie.id]);
 
   const handleFavoriteToggle = () => {
     if (isFavorite) {

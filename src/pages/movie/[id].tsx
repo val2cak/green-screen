@@ -81,6 +81,8 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
     (currentPage + 1) * itemsPerPage
   );
 
+  const direct = movie.credits.crew.find((credit) => credit.job === 'Director');
+
   return (
     <Layout>
       <div className='absolute top-5 left-5 z-30'>
@@ -204,34 +206,53 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
 
           <div className='md:col-span-2 space-y-6'>
             <div className='font-medium flex flex-col gap-4'>
-              <p className='flex flex-col'>
+              <p className='flex flex-col gap-1'>
                 <span className='text-gray'>{releasedYear}</span>
-                {movie.release_date.split('-')[0]}
+                <span className='bg-primary w-fit px-4 py-1 rounded-lg'>
+                  {movie.release_date.split('-')[0]}
+                </span>
               </p>
-              <p className='flex flex-col'>
+              <p className='flex flex-col gap-1'>
                 <span className='text-gray'>{score}</span>
-                {movie.vote_average}
+                <span className='bg-primary w-fit px-4 py-1 rounded-lg'>
+                  {movie.vote_average}
+                </span>
               </p>
-              <p className='flex flex-col'>
+              <p className='flex flex-col gap-1'>
                 <span className='text-gray'>{genre}</span>
-                {movie.genres.map((genre) => genre.name).join(', ')}
+                <div className='flex gap-2'>
+                  {movie.genres.map((genre, index) => (
+                    <span
+                      className='bg-primary w-fit px-4 py-1 rounded-lg'
+                      key={index}
+                    >
+                      {genre.name}
+                    </span>
+                  ))}
+                </div>
               </p>
-              <p className='flex flex-col'>
+              <p className='flex flex-col gap-1'>
                 <span className='text-gray'>{duration}</span>
-                {movie.runtime} minutes
+                <span className='bg-primary w-fit px-4 py-1 rounded-lg'>
+                  {movie.runtime} minutes
+                </span>
               </p>
-              <p className='flex flex-col'>
+              <p className='flex flex-col gap-1'>
                 <span className='text-gray'>{country}</span>
-                {movie.production_countries
-                  .map((country) => country.name)
-                  .join(', ')}
+                {movie.production_countries.map((country, index) => (
+                  <span
+                    className='bg-primary w-fit px-4 py-1 rounded-lg'
+                    key={index}
+                  >
+                    {country.name}
+                  </span>
+                ))}
               </p>
-              <p className='flex flex-col'>
+              <p className='flex flex-col gap-1'>
                 <span className='text-gray'>{director}</span>
-                {
-                  movie.credits.crew.find((credit) => credit.job === 'Director')
-                    ?.name
-                }
+                <span className='bg-primary px-4 py-1 rounded-lg flex w-fit'>
+                  {direct?.name}
+                </span>
               </p>
             </div>
           </div>

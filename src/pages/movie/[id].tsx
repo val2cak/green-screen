@@ -4,7 +4,10 @@ import {
   IoArrowBack as ArrowBack,
   IoArrowForward as ArrowForward,
 } from 'react-icons/io5';
-import { IoMdHeartEmpty as EmptyHeartIcon } from 'react-icons/io';
+import {
+  IoMdHeartEmpty as EmptyHeartIcon,
+  IoMdHeart as FullHeartIcon,
+} from 'react-icons/io';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
@@ -17,6 +20,7 @@ import posterPlaceholder from '/public/images/poster-placeholder.jpg';
 import bannerPlaceholder from '/public/images/banner-placeholder.jpg';
 import creditPlaceholder from '/public/images/credit-placeholder.jpg';
 import locale from '@/localization/locale';
+import { useFavoritesStore } from '@/store/favorites-store';
 
 type MovieDetailsProps = {
   movie: MovieDetailsType;
@@ -26,7 +30,20 @@ type MovieDetailsProps = {
 const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 8;
+
   const router = useRouter();
+
+  const { favorites, addFavorite, removeFavorite } = useFavoritesStore();
+
+  const isFavorite = favorites.some((fav) => fav.id === movie.id);
+
+  const handleFavoriteToggle = () => {
+    if (isFavorite) {
+      removeFavorite(movie.id);
+    } else {
+      addFavorite(movie);
+    }
+  };
 
   const {
     as,
@@ -87,8 +104,15 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
       <div className='absolute top-0 left-0 w-full sm:px-8 lg:px-16 px-40 py-16 h-[750px] flex gap-4 flex-col justify-end items-center bg-gradient-to-t from-secondary via-transparent to-secondary text-center'>
         <span className='text-3xl font-bold'>{movie.title}</span>
         <span className='text-md opacity-85'>{movie.overview}</span>
-        <div className='bg-secondary p-2 rounded-lg opacity-90'>
-          <EmptyHeartIcon className='text-xl' />
+        <div
+          onClick={handleFavoriteToggle}
+          className='cursor-pointer bg-secondary p-2 rounded-lg opacity-90'
+        >
+          {isFavorite ? (
+            <FullHeartIcon className='text-xl' />
+          ) : (
+            <EmptyHeartIcon className='text-xl' />
+          )}
         </div>
       </div>
 
@@ -208,10 +232,12 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
         </div>
       </div>
 
-      <div className='sm:px-8 lg:px-16 px-40 py-8'>
-        <h2 className='text-xl font-bold mb-4 capitalize'>{youMightLike}</h2>
-        <MovieList movies={similarMovies} />
-      </div>
+      {similarMovies.length !== 0 && (
+        <div className='sm:px-8 lg:px-16 px-40 py-8'>
+          <h2 className='text-xl font-bold mb-4 capitalize'>{youMightLike}</h2>
+          <MovieList movies={similarMovies} />
+        </div>
+      )}
     </Layout>
   );
 };

@@ -1,9 +1,12 @@
 import { FC } from 'react';
 import Link from 'next/link';
-import { IoMdHeartEmpty as EmptyHeartIcon } from 'react-icons/io';
+import {
+  IoMdHeartEmpty as EmptyHeartIcon,
+  IoMdHeart as FullHeartIcon,
+} from 'react-icons/io';
 import { IoStar as StarIcon } from 'react-icons/io5';
 import Image from 'next/image';
-
+import { useFavoritesStore } from '@/store/favorites-store';
 import posterPlaceholder from '/public/images/poster-placeholder.jpg';
 import { loadImage } from '@/utils/load-img';
 import { MovieType } from '@/types/movie-types';
@@ -13,6 +16,18 @@ interface Props {
 }
 
 const MovieCard: FC<Props> = ({ movie }) => {
+  const { favorites, addFavorite, removeFavorite } = useFavoritesStore();
+
+  const isFavorite = favorites.some((fav) => fav.id === movie.id);
+
+  const handleFavoriteToggle = () => {
+    if (isFavorite) {
+      removeFavorite(movie.id);
+    } else {
+      addFavorite(movie);
+    }
+  };
+
   return (
     <div className='bg-secondary rounded-lg p-4 shadow-lg w-[224px] flex flex-col gap-4'>
       <Link href={`/movie/${movie.id}`} className='block w-[192px] h-[274px]'>
@@ -33,8 +48,15 @@ const MovieCard: FC<Props> = ({ movie }) => {
         <div className='cursor-pointer bg-primary rounded-3xl py-1 px-2 w-fit flex items-center font-medium gap-2'>
           <StarIcon className='text-lg' /> {movie.vote_average}
         </div>
-        <div className='cursor-pointer bg-primary rounded-3xl py-1 px-2 w-fit'>
-          <EmptyHeartIcon className='text-xl' />
+        <div
+          onClick={handleFavoriteToggle}
+          className='cursor-pointer bg-primary rounded-3xl py-1 px-2 w-fit'
+        >
+          {isFavorite ? (
+            <FullHeartIcon className='text-xl' />
+          ) : (
+            <EmptyHeartIcon className='text-xl' />
+          )}
         </div>
       </div>
     </div>

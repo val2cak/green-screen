@@ -15,6 +15,7 @@ import { MovieDetailsType, CreditType, MovieType } from '@/types/movie-types';
 import MovieList from '@/components/movie-list/movie-list';
 import posterPlaceholder from '/public/images/poster-placeholder.jpg';
 import bannerPlaceholder from '/public/images/banner-placeholder.jpg';
+import creditPlaceholder from '/public/images/credit-placeholder.jpg';
 
 type MovieDetailsProps = {
   movie: MovieDetailsType;
@@ -124,7 +125,7 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
                     src={
                       actor.profile_path
                         ? `https://image.tmdb.org/t/p/w185${actor.profile_path}`
-                        : '/images/person.jpg'
+                        : creditPlaceholder
                     }
                     alt={actor.name}
                     className='rounded-lg mx-auto shadow-lg w-32 h-40'

@@ -4,7 +4,7 @@ import debounce from 'lodash/debounce';
 import Link from 'next/link';
 
 import { loadImage } from '@/utils/load-img';
-import { getMovies } from '@/utils/api';
+import { searchMovies } from '@/utils/api';
 import SearchInput from '@/components/search-bar/components/search-input';
 import posterPlaceholder from '/public/images/poster-placeholder.jpg';
 import Loader from '../loader/loader';
@@ -21,8 +21,8 @@ const SearchBar = () => {
   const searchMoviesDebounced = useCallback(
     debounce(async (query: string) => {
       setIsSearching(true);
-      const data = await getMovies('/search/movie', { query });
-      setSearchResults(data.results || []);
+      const results = await searchMovies(query);
+      setSearchResults(results || []);
       setIsSearching(false);
       setHighlightedIndex(0);
     }, 300),

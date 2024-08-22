@@ -3,7 +3,11 @@ import { FC, useEffect, useState } from 'react';
 import Dropdown from '@/components/dropdown/dropdown';
 import Button from '@/components/button/button';
 import { FiltersType, GenreType } from '@/types/movie-types';
-import { getMovies } from '@/utils/api';
+import {
+  fetchGenres,
+  fetchOldestMovieYear,
+  fetchNewestMovieYear,
+} from '@/utils/api';
 import locale from '@/localization/locale';
 
 type FiltersProps = {
@@ -23,27 +27,9 @@ const Filters: FC<FiltersProps> = ({
   const [genres, setGenres] = useState<GenreType[]>([]);
   const [yearOptions, setYearOptions] = useState<string[]>([]);
 
-  const fetchOldestYear = async () => {
-    const data = await getMovies('/discover/movie', {
-      sort_by: 'release_date.asc',
-      page: 1,
-    });
-    const oldestMovie = data.results[0];
-    return new Date(oldestMovie.release_date).getFullYear();
-  };
-
-  const fetchNewestYear = async () => {
-    const data = await getMovies('/discover/movie', {
-      sort_by: 'release_date.desc',
-      page: 1,
-    });
-    const newestMovie = data.results[0];
-    return new Date(newestMovie.release_date).getFullYear();
-  };
-
   const fetchYearRange = async () => {
-    const oldestYear = await fetchOldestYear();
-    const newestYear = await fetchNewestYear();
+    const oldestYear = await fetchOldestMovieYear();
+    const newestYear = await fetchNewestMovieYear();
 
     const yearOptions = [
       allYears,
@@ -52,11 +38,6 @@ const Filters: FC<FiltersProps> = ({
       ),
     ];
     return yearOptions;
-  };
-
-  const fetchGenres = async () => {
-    const data = await getMovies('/genre/movie/list');
-    return data.genres;
   };
 
   useEffect(() => {

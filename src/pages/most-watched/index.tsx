@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import { getMovies } from '@/utils/api';
+import { fetchMoviesWithFilters } from '@/utils/api';
 import Layout from '@/components/layout/layout';
 import MovieCard from '@/components/movie-card/movie-card';
 import Filters from './components/filters';
@@ -26,16 +26,6 @@ const MostWatchedPage = () => {
 
   const { noDataMessage } = locale.common;
 
-  const fetchMovies = async (page: number, filters: FiltersType) => {
-    const params: any = { page };
-    if (filters.year) params['primary_release_year'] = filters.year;
-    if (filters.genre) params['with_genres'] = filters.genre;
-    if (filters.score) params['vote_average.gte'] = filters.score;
-
-    const data = await getMovies('/discover/movie', params);
-    return data.results;
-  };
-
   useEffect(() => {
     const loadInitialData = async () => {
       const queryFilters: FiltersType = {
@@ -46,8 +36,8 @@ const MostWatchedPage = () => {
 
       setFilters(queryFilters);
 
-      const newMovies = await fetchMovies(page, queryFilters);
-      setMovies(newMovies);
+      const newMovies = await fetchMoviesWithFilters(page, queryFilters);
+      setMovies(newMovies.results);
     };
 
     loadInitialData();
@@ -57,9 +47,9 @@ const MostWatchedPage = () => {
     if (page === 1) return;
 
     const loadMovies = async () => {
-      const newMovies = await fetchMovies(page, filters);
-      setMovies((prevMovies) => [...prevMovies, ...newMovies]);
-      if (newMovies.length === 0) setHasMore(false);
+      const newMovies = await fetchMoviesWithFilters(page, filters);
+      setMovies((prevMovies) => [...prevMovies, ...newMovies.results]);
+      if (newMovies.results.length === 0) setHasMore(false);
     };
 
     loadMovies();

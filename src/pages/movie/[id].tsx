@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 
 import Layout from '@/components/layout/layout';
-import { getMovies } from '@/utils/api';
+import { fetchMovieDetails, fetchSimilarMovies } from '@/utils/api';
 import { loadImage } from '@/utils/load-img';
 import { MovieDetailsType, CreditType, MovieType } from '@/types/movie-types';
 import MovieList from '@/components/movie-list/movie-list';
@@ -219,10 +219,8 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.query;
 
-  const movie = await getMovies(`/movie/${id}?append_to_response=credits`);
-
-  const similarMoviesResponse = await getMovies(`/movie/${id}/similar`);
-  const similarMovies = similarMoviesResponse.results || [];
+  const movie = await fetchMovieDetails(id);
+  const similarMovies = await fetchSimilarMovies(id);
 
   return {
     props: {

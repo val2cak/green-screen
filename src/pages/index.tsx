@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
-import { getMovies } from '@/utils/api';
+import {
+  fetchNowPlayingMovies,
+  fetchProviders,
+  fetchMoviesByGenre,
+  fetchTopMoviesByProvider,
+} from '@/utils/api';
 import MovieList from '@/components/movie-list/movie-list';
 import Layout from '@/components/layout/layout';
 import Cover from './cover';
@@ -39,26 +44,14 @@ const HomePage = () => {
 
   useEffect(() => {
     const fetchInitialData = async () => {
-      const newMovies = await getMovies('/movie/now_playing');
-      const providerList = await getMovies(
-        '/watch/providers/movie?watch_region=GB'
-      );
+      const newMovies = await fetchNowPlayingMovies();
+      const providerList = await fetchProviders();
 
-      const action = await getMovies(
-        '/discover/movie?sort_by=popularity.desc&with_genres=28'
-      );
-      const comedy = await getMovies(
-        '/discover/movie?sort_by=popularity.desc&with_genres=35'
-      );
-      const horror = await getMovies(
-        '/discover/movie?sort_by=popularity.desc&with_genres=27'
-      );
-      const drama = await getMovies(
-        '/discover/movie?sort_by=popularity.desc&with_genres=18'
-      );
-      const scifi = await getMovies(
-        '/discover/movie?sort_by=popularity.desc&with_genres=878'
-      );
+      const action = await fetchMoviesByGenre(28);
+      const comedy = await fetchMoviesByGenre(35);
+      const horror = await fetchMoviesByGenre(27);
+      const drama = await fetchMoviesByGenre(18);
+      const scifi = await fetchMoviesByGenre(878);
 
       setNewestMovies(newMovies.results);
       setProviders(providerList.results);
@@ -75,9 +68,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchTop3Movies = async () => {
       if (selectedProvider) {
-        const top3ByProvider = await getMovies(
-          `/discover/movie?sort_by=popularity.desc&page=1&with_watch_providers=${selectedProvider}&watch_region=GB`
-        );
+        const top3ByProvider = await fetchTopMoviesByProvider(selectedProvider);
         setTop3Movies(top3ByProvider.results.slice(0, 3));
       }
     };

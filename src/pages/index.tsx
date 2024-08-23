@@ -126,7 +126,7 @@ const HomePage = () => {
                   height={270}
                 />
 
-                <div className='sm:pl-24 pl-36 z-20'>
+                <div className='pl-36 z-20'>
                   <MovieCard movie={movie} />
                 </div>
               </div>

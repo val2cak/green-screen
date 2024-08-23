@@ -29,8 +29,11 @@ const MovieCard: FC<Props> = ({ movie }) => {
   }, [isFavorite, addFavorite, removeFavorite]);
 
   return (
-    <div className='bg-secondary rounded-lg p-4 shadow-lg w-[224px] flex flex-col gap-4'>
-      <Link href={`/movie/${movie.id}`} className='block w-[192px] h-[274px]'>
+    <div className='bg-secondary rounded-lg p-4 shadow-lg sm:w-[150px] w-[224px] flex flex-col gap-4'>
+      <Link
+        href={`/movie/${movie.id}`}
+        className='block sm:w-[120px] w-[192px] sm:h-[160px] h-[274px]'
+      >
         <Image
           src={
             movie.poster_path !== '' && movie.poster_path
@@ -38,7 +41,7 @@ const MovieCard: FC<Props> = ({ movie }) => {
               : posterPlaceholder.src
           }
           alt={movie.title}
-          className='rounded-lg w-[192px] h-[274px]'
+          className='rounded-lg sm:w-[120px] w-[192px] sm:h-[160px] h-[274px]'
           width={192}
           height={274}
           loader={loadImage}
@@ -46,16 +49,16 @@ const MovieCard: FC<Props> = ({ movie }) => {
       </Link>
       <div className='flex justify-between text-gray'>
         <div className='cursor-pointer bg-primary rounded-3xl py-1 px-2 w-fit flex items-center font-medium gap-2'>
-          <StarIcon className='text-lg' /> {movie.vote_average}
+          <StarIcon className='sm:text-md text-lg' /> {movie.vote_average}
         </div>
         <div
           onClick={handleFavoriteToggle}
-          className='cursor-pointer bg-primary rounded-3xl py-1 px-2 w-fit'
+          className='cursor-pointer bg-primary rounded-3xl py-1 sm:px-1 px-2 w-fit'
         >
           {isFavorite ? (
-            <FullHeartIcon className='text-xl' />
+            <FullHeartIcon className='sm:text-lg text-xl' />
           ) : (
-            <EmptyHeartIcon className='text-xl' />
+            <EmptyHeartIcon className='sm:text-lg text-xl' />
           )}
         </div>
       </div>

@@ -112,7 +112,7 @@ const MostWatchedPage = () => {
 
   return (
     <Layout>
-      <div className='py-8'>
+      <div className='sm:pt-36 py-8'>
         <Filters
           filters={filters}
           handleFilterChange={handleFilterChange}
@@ -125,7 +125,7 @@ const MostWatchedPage = () => {
             next={handleLoadMore}
             hasMore={hasMore}
             loader={<Loader />}
-            className='grid gap-y-4 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 grid-cols-5 2xl:grid-cols-6 !overflow-y-hidden'
+            className='grid gap-y-4 sm:gap-x-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-cols-5 2xl:grid-cols-6 !overflow-y-hidden'
           >
             {movies.map((movie, index) => (
               <MovieCard key={`${movie.id}-${index}`} movie={movie} />

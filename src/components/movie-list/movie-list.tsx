@@ -3,6 +3,7 @@ import {
   IoArrowBack as ArrowBack,
   IoArrowForward as ArrowForward,
 } from 'react-icons/io5';
+import { useMediaQuery } from 'react-responsive';
 
 import MovieCard from '../movie-card/movie-card';
 import { MovieType } from '@/types/movie-types';
@@ -12,6 +13,8 @@ interface Props {
 }
 
 const MovieList: FC<Props> = ({ movies }) => {
+  const isSmallScreen = useMediaQuery({ query: '(max-width: 768px)' });
+
   const containerRef = useRef<HTMLDivElement>(null);
 
   const extendedMovies = [...movies, ...movies];
@@ -19,7 +22,10 @@ const MovieList: FC<Props> = ({ movies }) => {
   const scrollLeft = () => {
     const container = containerRef.current;
     if (container) {
-      container.scrollBy({ left: -300, behavior: 'smooth' });
+      container.scrollBy({
+        left: isSmallScreen ? -150 : -300,
+        behavior: 'smooth',
+      });
 
       if (container.scrollLeft <= 0) {
         container.scrollLeft += container.scrollWidth / 2;
@@ -30,7 +36,10 @@ const MovieList: FC<Props> = ({ movies }) => {
   const scrollRight = () => {
     const container = containerRef.current;
     if (container) {
-      container.scrollBy({ left: 300, behavior: 'smooth' });
+      container.scrollBy({
+        left: isSmallScreen ? 150 : 300,
+        behavior: 'smooth',
+      });
 
       if (
         container.scrollLeft + container.clientWidth >=

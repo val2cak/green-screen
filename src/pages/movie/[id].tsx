@@ -29,6 +29,7 @@ import bannerPlaceholder from '/public/images/banner-placeholder.jpg';
 import creditPlaceholder from '/public/images/credit-placeholder.jpg';
 import locale from '@/localization/locale';
 import { useFavoritesStore } from '@/store/favorites-store';
+import { useMediaQuery } from 'react-responsive';
 
 type MovieDetailsProps = {
   movie: MovieDetailsType;
@@ -40,8 +41,10 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
     ssr: false,
   });
 
+  const isSmallScreen = useMediaQuery({ query: '(max-width: 768px)' });
+
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 8;
+  const itemsPerPage = isSmallScreen ? 4 : 8;
 
   const router = useRouter();
 
@@ -122,8 +125,10 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
       </div>
 
       <div className='absolute top-0 left-0 w-full sm:px-8 lg:px-16 px-40 py-16 h-[750px] flex gap-4 flex-col justify-end items-center bg-gradient-to-t from-secondary via-transparent to-secondary text-center'>
-        <span className='text-3xl font-bold'>{movie.title}</span>
-        <span className='text-md opacity-85'>{movie.overview}</span>
+        <span className='sm:text-2xl text-3xl font-bold'>{movie.title}</span>
+        <span className='sm:text-base text-md opacity-85'>
+          {movie.overview}
+        </span>
         <div
           onClick={handleFavoriteToggle}
           className='cursor-pointer bg-secondary p-2 rounded-lg opacity-90'
@@ -136,8 +141,8 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
         </div>
       </div>
 
-      <div className='sm:px-8 lg:px-16 px-40 mx-auto w-full h-full flex gap-12'>
-        <div className='w-1/2 flex flex-col gap-8'>
+      <div className='sm:px-8 lg:px-16 px-40 mx-auto w-full h-full flex sm:flex-col gap-12'>
+        <div className='sm:w-full w-1/2 flex flex-col gap-8'>
           <div className='font-medium flex flex-col gap-4 bg-secondary p-12 rounded-lg'>
             <span className='text-gray'>{description}</span>
             <div>{movie.overview}</div>
@@ -173,7 +178,7 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
               </div>
             </div>
 
-            <div className='grid grid-cols-4 sm:grid-cols-3 md:grid-cols-4 gap-4'>
+            <div className='grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4'>
               {paginatedCast.map((actor: CreditType) => (
                 <div
                   key={actor.cast_id}
@@ -200,7 +205,7 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
             </div>
           </div>
         </div>
-        <div className='flex flex-col gap-8 w-1/2 bg-secondary p-12 rounded-lg'>
+        <div className='flex flex-col gap-8 sm:w-full w-1/2 bg-secondary p-12 rounded-lg'>
           <div className='flex justify-start'>
             <Image
               src={
@@ -238,7 +243,7 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
                 <span className='text-gray flex items-center gap-1'>
                   <GenreIcon /> {genre}
                 </span>
-                <div className='flex gap-2'>
+                <div className='flex sm:flex-col gap-2'>
                   {movie.genres.map((genre, index) => (
                     <span
                       className='bg-primary w-fit px-4 py-1 rounded-lg'
@@ -261,7 +266,7 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
                 <span className='text-gray flex items-center gap-1'>
                   <CountryIcon /> {country}
                 </span>
-                <div className='flex gap-2'>
+                <div className='flex sm:flex-col gap-2'>
                   {movie.production_countries.map((country, index) => (
                     <span
                       className='bg-primary w-fit px-4 py-1 rounded-lg'
@@ -286,8 +291,10 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
       </div>
 
       {similarMovies.length !== 0 && (
-        <div className='sm:px-8 lg:px-16 px-40 py-8'>
-          <h2 className='text-xl font-bold mb-4 capitalize'>{youMightLike}</h2>
+        <div className='sm:px-8 lg:px-16 px-40 sm:py-4 py-8'>
+          <h2 className='sm:text-lg text-xl font-bold mb-4 capitalize'>
+            {youMightLike}
+          </h2>
           <MovieList movies={similarMovies} />
         </div>
       )}

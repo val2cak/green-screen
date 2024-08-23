@@ -58,7 +58,7 @@ const Filters: FC<FiltersProps> = ({
   ];
 
   return (
-    <div className='flex space-x-4 mb-8 capitalize'>
+    <div className='flex sm:flex-col sm:items-start gap-4 sm:gap-2 mb-8 capitalize'>
       <Dropdown
         items={yearOptions}
         selectedItem={filters.year || allYears}

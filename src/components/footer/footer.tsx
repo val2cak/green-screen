@@ -9,7 +9,7 @@ const Footer = () => {
   const { allRightsReserved, services } = locale.common;
 
   return (
-    <div className='bottom-0 h-64 sm:px-8 lg:px-16 px-40 sm:py-12 py-16 w-full flex justify-between bg-secondary'>
+    <div className='bottom-0 h-fit sm:flex-col sm:gap-12 sm:px-8 lg:px-16 px-40 sm:py-12 py-16 w-full flex justify-between bg-secondary'>
       <div className='flex flex-col sm:gap-4 gap-8 sm:tracking-normal tracking-wider justify-center'>
         <Logo />
         <span className='text-gray'>{allRightsReserved}</span>

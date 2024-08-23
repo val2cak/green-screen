@@ -61,7 +61,9 @@ const Filters: FC<FiltersProps> = ({
     <div className='flex sm:flex-col sm:items-start gap-4 sm:gap-2 mb-8 capitalize'>
       <Dropdown
         items={yearOptions}
-        selectedItem={filters?.year ?? allYears}
+        selectedItem={
+          filters?.year && filters?.year !== '' ? filters.year : allYears
+        }
         onSelect={(item) =>
           handleFilterChange('year', item === allYears ? '' : item)
         }
@@ -85,7 +87,9 @@ const Filters: FC<FiltersProps> = ({
 
       <Dropdown
         items={scoreOptions}
-        selectedItem={filters?.score ?? allScores}
+        selectedItem={
+          filters?.score && filters?.score !== '' ? filters.score : allScores
+        }
         onSelect={(item) =>
           handleFilterChange('score', item === allScores ? '' : item)
         }

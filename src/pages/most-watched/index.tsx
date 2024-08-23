@@ -10,7 +10,7 @@ import { FiltersType } from '@/types/movie-types';
 import Loader from '@/components/loader/loader';
 import locale from '@/localization/locale';
 
-export const initialFilters = {
+export const initialFilters: FiltersType = {
   year: '',
   genre: '',
   score: '',
@@ -33,9 +33,15 @@ const MostWatchedPage = () => {
   useEffect(() => {
     const loadInitialData = async () => {
       const queryFilters: FiltersType = {
-        year: router.query.year || '',
-        genre: router.query.genre || '',
-        score: router.query.score || '',
+        year: Array.isArray(router.query.year)
+          ? router.query.year[0]
+          : router.query.year || '',
+        genre: Array.isArray(router.query.genre)
+          ? router.query.genre[0]
+          : router.query.genre || '',
+        score: Array.isArray(router.query.score)
+          ? router.query.score[0]
+          : router.query.score || '',
       };
 
       setFilters(queryFilters);
@@ -61,10 +67,16 @@ const MostWatchedPage = () => {
 
   useEffect(() => {
     if (router.isReady) {
-      const newFilters = {
-        year: router.query.year || '',
-        genre: router.query.genre || '',
-        score: router.query.score || '',
+      const newFilters: FiltersType = {
+        year: Array.isArray(router.query.year)
+          ? router.query.year[0]
+          : router.query.year || '',
+        genre: Array.isArray(router.query.genre)
+          ? router.query.genre[0]
+          : router.query.genre || '',
+        score: Array.isArray(router.query.score)
+          ? router.query.score[0]
+          : router.query.score || '',
       };
       setFilters(newFilters);
       setPage(1);
@@ -81,8 +93,8 @@ const MostWatchedPage = () => {
     const query = { ...router.query };
 
     Object.keys(newFilters).forEach((key) => {
-      if (newFilters[key]) {
-        query[key] = newFilters[key];
+      if (newFilters[key as keyof FiltersType]) {
+        query[key] = newFilters[key as keyof FiltersType];
       } else {
         delete query[key];
       }
@@ -94,7 +106,7 @@ const MostWatchedPage = () => {
   };
 
   const handleFilterChange = (name: string, value: string) => {
-    const newFilters = { ...filters, [name]: value };
+    const newFilters: FiltersType = { ...filters, [name]: value };
     setFilters(newFilters);
     setPage(1);
     setMovies([]);

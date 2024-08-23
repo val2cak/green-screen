@@ -1,35 +1,32 @@
-import React, { useState } from 'react';
-import { FaSearch, FaHeart } from 'react-icons/fa';
+import { useRouter } from 'next/router';
+
 import Logo from './components/logo';
 import Links from './components/links';
-import { useRouter } from 'next/router';
+import SearchBar from '../search-bar/search-bar';
+import FavoritesList from './components/favorites-list';
 
 const Navbar = () => {
   const router = useRouter();
 
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  };
-
   return (
-    <header className='flex items-center justify-between sm:px-8 lg:px-16 px-40 py-6 border-b border-b-light border-opacity-5'>
+    <header
+      className={`flex sm:flex-col sm:gap-4 justify-between z-50 absolute top-0 left-0 right-0 sm:px-8 lg:px-16 px-40 sm:py-4 py-2 ${
+        router.pathname === '/' || router.pathname.includes('movie')
+          ? 'bg-transparent sm:bg-primary sm:bg-opacity-75'
+          : 'bg-primary'
+      }`}
+    >
       <Logo />
-      <Links />
-      <div className='flex items-center space-x-4'>
-        <div className='relative'>
-          <input
-            type='text'
-            value={searchQuery}
-            onChange={handleSearch}
-            placeholder='Search...'
-            className='p-2 rounded bg-gray-700 text-white'
-          />
-          <FaSearch className='absolute top-3 right-2 text-white' />
-        </div>
-        <div className='relative'>
-          <FaHeart className='text-white text-xl' />
+
+      <div className='flex sm:flex-col-reverse gap-4 items-center justify-between'>
+        <Links />
+
+        <div className='flex items-center gap-4'>
+          <SearchBar />
+
+          <div className='sm:hidden'>
+            <FavoritesList />
+          </div>
         </div>
       </div>
     </header>

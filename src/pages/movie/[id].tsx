@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect, useCallback } from 'react';
 import { GetServerSideProps } from 'next';
 import {
   IoArrowBack as ArrowBack,
@@ -9,6 +9,14 @@ import {
   IoMdHeartEmpty as EmptyHeartIcon,
   IoMdHeart as FullHeartIcon,
 } from 'react-icons/io';
+import {
+  IoCalendarClearOutline as YearIcon,
+  IoStarOutline as ScoreIcon,
+  IoGridOutline as GenreIcon,
+  IoTimeOutline as DurationIcon,
+  IoFlagOutline as CountryIcon,
+  IoPersonOutline as DirectorIcon,
+} from 'react-icons/io5';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
@@ -47,13 +55,13 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
     setIsFavorite(favorites.some((fav) => fav.id === movie.id));
   }, [favorites, movie.id]);
 
-  const handleFavoriteToggle = () => {
+  const handleFavoriteToggle = useCallback(() => {
     if (isFavorite) {
       removeFavorite(movie.id);
     } else {
       addFavorite(movie);
     }
-  };
+  }, [isFavorite, movie.id, addFavorite, removeFavorite]);
 
   const {
     as,
@@ -211,19 +219,25 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
           <div className='md:col-span-2 space-y-6'>
             <div className='font-medium flex flex-col gap-4'>
               <p className='flex flex-col gap-1'>
-                <span className='text-gray'>{releasedYear}</span>
+                <span className='text-gray flex items-center gap-1'>
+                  <YearIcon /> {releasedYear}
+                </span>
                 <span className='bg-primary w-fit px-4 py-1 rounded-lg'>
                   {movie.release_date.split('-')[0]}
                 </span>
               </p>
               <p className='flex flex-col gap-1'>
-                <span className='text-gray'>{score}</span>
+                <span className='text-gray flex items-center gap-1'>
+                  <ScoreIcon /> {score}
+                </span>
                 <span className='bg-primary w-fit px-4 py-1 rounded-lg'>
                   {movie.vote_average}
                 </span>
               </p>
               <p className='flex flex-col gap-1'>
-                <span className='text-gray'>{genre}</span>
+                <span className='text-gray flex items-center gap-1'>
+                  <GenreIcon /> {genre}
+                </span>
                 <div className='flex gap-2'>
                   {movie.genres.map((genre, index) => (
                     <span
@@ -236,24 +250,32 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
                 </div>
               </p>
               <p className='flex flex-col gap-1'>
-                <span className='text-gray'>{duration}</span>
+                <span className='text-gray flex items-center gap-1'>
+                  <DurationIcon /> {duration}
+                </span>
                 <span className='bg-primary w-fit px-4 py-1 rounded-lg'>
                   {movie.runtime} minutes
                 </span>
               </p>
               <p className='flex flex-col gap-1'>
-                <span className='text-gray'>{country}</span>
-                {movie.production_countries.map((country, index) => (
-                  <span
-                    className='bg-primary w-fit px-4 py-1 rounded-lg'
-                    key={index}
-                  >
-                    {country.name}
-                  </span>
-                ))}
+                <span className='text-gray flex items-center gap-1'>
+                  <CountryIcon /> {country}
+                </span>
+                <div className='flex gap-2'>
+                  {movie.production_countries.map((country, index) => (
+                    <span
+                      className='bg-primary w-fit px-4 py-1 rounded-lg'
+                      key={index}
+                    >
+                      {country.name}
+                    </span>
+                  ))}
+                </div>
               </p>
               <p className='flex flex-col gap-1'>
-                <span className='text-gray'>{director}</span>
+                <span className='text-gray flex items-center gap-1'>
+                  <DirectorIcon /> {director}
+                </span>
                 <span className='bg-primary px-4 py-1 rounded-lg flex w-fit'>
                   {direct?.name}
                 </span>

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 import Link from 'next/link';
 import {
   IoMdHeartEmpty as EmptyHeartIcon,
@@ -20,13 +20,13 @@ const MovieCard: FC<Props> = ({ movie }) => {
 
   const isFavorite = favorites.some((fav) => fav.id === movie.id);
 
-  const handleFavoriteToggle = () => {
+  const handleFavoriteToggle = useCallback(() => {
     if (isFavorite) {
       removeFavorite(movie.id);
     } else {
       addFavorite(movie);
     }
-  };
+  }, [isFavorite, addFavorite, removeFavorite]);
 
   return (
     <div className='bg-secondary rounded-lg p-4 shadow-lg w-[224px] flex flex-col gap-4'>

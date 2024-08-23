@@ -106,7 +106,7 @@ const SearchBar = () => {
 
       {searchQuery && searchResults.length > 0 && (
         <div
-          className='absolute top-12 -left-4 w-full max-h-96 bg-secondary text-light rounded-lg shadow-lg z-50 overflow-y-auto'
+          className='absolute outline-none top-12 -left-4 w-full max-h-96 bg-secondary text-light rounded-lg shadow-lg z-50 overflow-y-auto'
           ref={resultsRef}
         >
           {isSearching ? (

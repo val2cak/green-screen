@@ -39,6 +39,7 @@ module.exports = {
       },
       backgroundImage: () => ({
         hero: "url('/images/hero.png')",
+        heroMobile: "url('/images/hero-mobile.png')",
       }),
       lineHeight: {
         3: '1.2rem',

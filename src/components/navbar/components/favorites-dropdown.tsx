@@ -85,7 +85,9 @@ const FavoritesDropdown: FC<Props> = ({ onClose }) => {
             className={`flex items-center p-2 border-b border-opacity-15 border-tertiary ${
               highlightedIndex === index ? 'bg-light bg-opacity-25' : ''
             }`}
-            ref={(el) => (itemRefs.current[index] = el)}
+            ref={(el) => {
+              itemRefs.current[index] = el;
+            }}
             onMouseEnter={() => setHighlightedIndex(index)}
           >
             <Link

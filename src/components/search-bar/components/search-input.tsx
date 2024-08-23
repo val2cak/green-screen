@@ -15,7 +15,7 @@ const SearchInput: FC<Props> = ({ onSearch }) => {
 
   const [userInput, setUserInput] = useState('');
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setUserInput(value);
     onSearch(value);

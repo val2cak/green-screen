@@ -33,12 +33,12 @@ const Dropdown: FC<Props> = ({ items, onSelect, selectedItem }) => {
   return (
     <div
       ref={ref}
-      className='w-56 pb-0 relative border-none rounded-md bg-secondary z-30'
+      className='sm:w-full w-56 pb-0 relative border-none rounded-md bg-secondary'
     >
       <div
         onClick={() => setOpen(!open)}
         className={
-          'flex items-center justify-between gap-2 hover:cursor-pointer font-semibold pl-4 pr-2 py-2 w-56'
+          'flex items-center justify-between gap-2 hover:cursor-pointer font-semibold pl-4 pr-2 py-2 sm:w-full w-56'
         }
       >
         <p
@@ -57,7 +57,7 @@ const Dropdown: FC<Props> = ({ items, onSelect, selectedItem }) => {
       <div
         className={`${
           open ? 'block' : 'hidden'
-        } absolute bg-secondary rounded-md z-10 hover:cursor-pointer left-0 w-56 max-h-96 overflow-y-auto`}
+        } absolute bg-secondary rounded-md z-50 hover:cursor-pointer left-0 sm:w-full w-56 max-h-96 overflow-y-auto mt-1`}
       >
         {items?.map((item, index) => (
           <div
@@ -67,7 +67,7 @@ const Dropdown: FC<Props> = ({ items, onSelect, selectedItem }) => {
               selectedItem === item
                 ? 'bg-light text-primary bg-opacity-70'
                 : 'hover:bg-light hover:bg-opacity-40 hover:text-primary hover:cursor-pointer'
-            } pl-4 py-1.5 px-2 first:rounded-t-md last:rounded-b-md font-semibold lining-nums w-56`}
+            } pl-4 py-1.5 px-2 first:rounded-t-md last:rounded-b-md font-semibold lining-nums`}
           >
             {item}
           </div>

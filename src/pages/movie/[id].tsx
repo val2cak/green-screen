@@ -103,7 +103,7 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
       <div className='absolute top-5 left-5 z-50'>
         <button
           onClick={() => router.back()}
-          className='p-2 bg-primary rounded-lg text-light shadow-lg opacity-90'
+          className='p-2 bg-primary rounded-lg text-light shadow-lg opacity-90 sm:hidden'
         >
           <ArrowBack className='text-xl' />
         </button>
@@ -141,13 +141,13 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
         </div>
       </div>
 
-      <div className='sm:px-8 lg:px-16 px-40 mx-auto w-full h-full flex sm:flex-col gap-12'>
+      <div className='sm:px-8 lg:px-16 px-40 mx-auto w-full h-full flex sm:flex-col sm:gap-8 gap-12'>
         <div className='sm:w-full w-1/2 flex flex-col gap-8'>
-          <div className='font-medium flex flex-col gap-4 bg-secondary p-12 rounded-lg'>
+          <div className='font-medium flex flex-col gap-4 bg-secondary sm:p-8 p-12 rounded-lg'>
             <span className='text-gray'>{description}</span>
             <div>{movie.overview}</div>
           </div>
-          <div className='font-medium flex flex-col gap-4 bg-secondary p-12 rounded-lg flex-1'>
+          <div className='font-medium flex flex-col gap-4 bg-secondary sm:p-8 p-12 rounded-lg flex-1'>
             <div className='flex justify-between items-center'>
               <span className='text-gray'>{cast}</span>
               <div className='flex gap-4'>
@@ -205,7 +205,7 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
             </div>
           </div>
         </div>
-        <div className='flex flex-col gap-8 sm:w-full w-1/2 bg-secondary p-12 rounded-lg'>
+        <div className='flex flex-col gap-8 sm:w-full w-1/2 bg-secondary sm:p-8 p-12 rounded-lg'>
           <div className='flex justify-start'>
             <Image
               src={

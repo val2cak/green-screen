@@ -22,7 +22,7 @@ const Filters: FC<FiltersProps> = ({
   handleFilterChange,
   resetMovies,
 }) => {
-  const isSmallScreen = useMediaQuery({ query: '(max-width: 768px)' });
+  const isSmallScreen = useMediaQuery({ query: '(max-width: 1023px)' });
 
   const { allYears, allScores, allGenres } = locale.mostWatched;
   const { reset } = locale.common;
@@ -74,7 +74,7 @@ const Filters: FC<FiltersProps> = ({
       )}
 
       {showFilters && (
-        <div className='flex sm:flex-col sm:items-start sm:justify-between gap-4 capitalize'>
+        <div className='flex sm:flex-col md:flex-wrap sm:items-start sm:justify-between gap-4 capitalize'>
           <Dropdown
             items={yearOptions}
             selectedItem={
@@ -116,7 +116,7 @@ const Filters: FC<FiltersProps> = ({
           <Button
             text={reset}
             handleOnClick={resetMovies}
-            className='!px-8 !py-1 bg-light text-dark hover:!bg-dark hover:text-light rounded-lg !text-base sm:w-full'
+            className='!px-8 !py-1 bg-light text-dark hover:!bg-dark hover:text-light rounded-lg !text-base sm:w-full md:w-full'
           />
         </div>
       )}

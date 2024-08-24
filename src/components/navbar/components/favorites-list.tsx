@@ -19,11 +19,11 @@ const FavoritesList = () => {
     <div className='sm:static relative'>
       {hasFavorites ? (
         <FullHeartIcon
-          className='text-light sm:text-lg text-xl cursor-pointer'
+          className='text-light sm:text-lg md:text-lg text-xl cursor-pointer'
           onClick={toggleFavorites}
         />
       ) : (
-        <EmptyHeartIcon className='text-light sm:text-lg text-xl' />
+        <EmptyHeartIcon className='text-light sm:text-lg md:text-lg text-xl' />
       )}
       {isFavoritesOpen && (
         <FavoritesDropdown onClose={() => setFavoritesOpen(false)} />

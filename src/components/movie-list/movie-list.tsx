@@ -13,7 +13,7 @@ interface Props {
 }
 
 const MovieList: FC<Props> = ({ movies }) => {
-  const isSmallScreen = useMediaQuery({ query: '(max-width: 768px)' });
+  const isSmallScreen = useMediaQuery({ query: '(max-width: 1023px)' });
 
   const containerRef = useRef<HTMLDivElement>(null);
 

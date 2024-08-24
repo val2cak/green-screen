@@ -34,7 +34,7 @@ const SearchInput: FC<Props> = ({ onSearch }) => {
         value={userInput}
         onChange={handleChange}
         placeholder={browseMovies}
-        className='bg-transparent border border-light border-opacity-20 text-light font-semibold pl-11 pr-10 py-2 rounded-md placeholder:text-light outline-none sm:w-full'
+        className='bg-transparent border border-light border-opacity-20 text-light font-semibold pl-11 pr-10 py-2 rounded-md placeholder:text-light outline-none sm:w-full md:w-56'
       />
       {userInput && (
         <ClearIcon

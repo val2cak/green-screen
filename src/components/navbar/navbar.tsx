@@ -10,7 +10,7 @@ const Navbar = () => {
 
   return (
     <header
-      className={`flex sm:flex-col sm:gap-4 justify-between z-50 absolute top-0 left-0 right-0 sm:px-8 lg:px-16 px-40 sm:py-4 py-2 ${
+      className={`flex sm:flex-col sm:gap-4 justify-between z-50 absolute top-0 left-0 right-0 sm:px-8 md:px-12 lg:px-16 px-40 sm:py-4 py-2 ${
         router.pathname === '/' || router.pathname.includes('movie')
           ? 'bg-transparent sm:bg-primary sm:bg-opacity-75'
           : 'bg-primary'
@@ -24,7 +24,7 @@ const Navbar = () => {
         <div className='sm:w-full flex items-center gap-4'>
           <SearchBar />
 
-          <div className='sm:hidden'>
+          <div className='sm:hidden md:hidden'>
             <FavoritesList />
           </div>
         </div>

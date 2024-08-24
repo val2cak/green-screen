@@ -111,7 +111,7 @@ const HomePage = () => {
           />
         </div>
 
-        <div className='flex sm:flex-col sm:gap-8 justify-between items-center'>
+        <div className='flex sm:flex-col md:flex-col sm:gap-8 md:gap-4 justify-between items-center'>
           {selectedProvider &&
             top3Movies.map((movie, index) => (
               <div className='flex relative' key={index}>

@@ -103,7 +103,7 @@ const FavoritesDropdown: FC<Props> = ({ onClose }) => {
                     : posterPlaceholder
                 }
                 alt={movie.title}
-                className='w-12 h-16 mr-4'
+                className='w-12 h-16 mr-4 rounded-lg'
                 width={48}
                 height={64}
                 loader={loadImage}

@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react';
+import { FC, memo, useCallback } from 'react';
 import Link from 'next/link';
 import {
   IoMdHeartEmpty as EmptyHeartIcon,
@@ -67,4 +67,4 @@ const MovieCard: FC<Props> = ({ movie }) => {
   );
 };
 
-export default MovieCard;
+export default memo(MovieCard);

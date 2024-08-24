@@ -136,7 +136,7 @@ const SearchBar = () => {
                           : posterPlaceholder
                       }
                       alt={movie.title}
-                      className='w-12 h-16 mr-4'
+                      className='w-12 h-16 mr-4 rounded-lg'
                       loader={loadImage}
                       width={48}
                       height={64}

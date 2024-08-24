@@ -26,6 +26,9 @@ const Filters: FC<FiltersProps> = ({
 
   const [genres, setGenres] = useState<GenreType[]>([]);
   const [yearOptions, setYearOptions] = useState<string[]>([]);
+  const [showFilters, setShowFilters] = useState(false);
+
+  const toggleFilters = () => setShowFilters(!showFilters);
 
   const fetchYearRange = async () => {
     const oldestYear = await fetchOldestMovieYear();
@@ -58,7 +61,7 @@ const Filters: FC<FiltersProps> = ({
   ];
 
   return (
-    <div className='flex sm:flex-col sm:items-start gap-4 sm:gap-2 mb-8 capitalize'>
+    <div className='flex sm:flex-wrap sm:items-start sm:justify-between gap-4 sm:gap-2 mb-8 capitalize'>
       <Dropdown
         items={yearOptions}
         selectedItem={
@@ -98,7 +101,7 @@ const Filters: FC<FiltersProps> = ({
       <Button
         text={reset}
         handleOnClick={resetMovies}
-        className='!px-8 !py-1 bg-light text-dark hover:!bg-dark hover:text-light rounded-lg !text-base'
+        className='!px-8 !py-1 bg-light text-dark hover:!bg-dark hover:text-light rounded-lg !text-base sm:w-36'
       />
     </div>
   );

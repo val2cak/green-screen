@@ -9,7 +9,6 @@ import {
   fetchTopMoviesByProvider,
 } from '@/utils/api';
 import MovieList from '@/components/movie-list/movie-list';
-import Layout from '@/components/layout/layout';
 import Cover from './cover';
 import MovieCard from '@/components/movie-card/movie-card';
 import one from '/public/images/one-dark.png';
@@ -121,12 +120,12 @@ const HomePage = () => {
                     index === 0 ? one.src : index === 1 ? two.src : three.src
                   }
                   alt={'number'}
-                  className='h-full absolute'
+                  className='h-full absolute z-0'
                   width={220}
                   height={270}
                 />
 
-                <div className='pl-36 z-20'>
+                <div className='pl-36 z-10'>
                   <MovieCard movie={movie} />
                 </div>
               </div>

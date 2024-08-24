@@ -49,7 +49,8 @@ const MovieCard: FC<Props> = ({ movie }) => {
       </Link>
       <div className='flex justify-between text-gray'>
         <div className='cursor-pointer bg-primary rounded-3xl py-1 px-2 w-fit flex items-center font-medium gap-2'>
-          <StarIcon className='sm:text-md text-lg' /> {movie.vote_average}
+          <StarIcon className='sm:text-md text-lg' />
+          {movie.vote_average.toFixed(1)}
         </div>
         <div
           onClick={handleFavoriteToggle}

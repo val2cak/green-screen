@@ -20,7 +20,7 @@ const Layout: FC<Props> = ({ children }) => {
         <NavBar />
 
         <div
-          className={`flex-1 sm:px-8 lg:px-16 px-40 flex flex-col sm:gap-16 gap-9 sm:pb-16 pb-24 pt-24 ${
+          className={`flex-1 sm:px-8 lg:px-16 px-40 flex flex-col sm:gap-8 gap-9 sm:pb-16 pb-24 pt-24 ${
             router.pathname.includes('movie') && '!px-0 !pt-0'
           }`}
         >

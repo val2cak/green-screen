@@ -91,8 +91,8 @@ const HomePage = () => {
     <Layout>
       <Cover />
 
-      <section className='sm:py-2 py-8 sm:pt-[42rem] pt-[724px]'>
-        <h2 className='sm:text-xl text-2xl font-bold mb-4' id='movies-list'>
+      <section className='sm:py-2 py-8 sm:pt-[40.5rem] pt-[724px]'>
+        <h2 className='sm:text-lg text-2xl font-bold mb-4' id='movies-list'>
           {newest}
         </h2>
         <MovieList movies={newestMovies} />
@@ -100,7 +100,7 @@ const HomePage = () => {
 
       <section className='sm:py-2 py-8'>
         <div className='flex sm:flex-col sm:items-start sm:pb-8 justify-between items-center'>
-          <h2 className='sm:text-xl text-2xl font-bold mb-4'>{top3}</h2>
+          <h2 className='sm:text-lg text-2xl font-bold mb-4'>{top3}</h2>
           <Dropdown
             items={providers.map((provider) => provider.provider_name)}
             onSelect={handleProviderChange}
@@ -111,7 +111,7 @@ const HomePage = () => {
           />
         </div>
 
-        <div className='flex sm:flex-col sm:gap-8 justify-between'>
+        <div className='flex sm:flex-col sm:gap-8 justify-between items-center'>
           {selectedProvider &&
             top3Movies.map((movie, index) => (
               <div className='flex relative' key={index}>
@@ -134,27 +134,27 @@ const HomePage = () => {
       </section>
 
       <section className='sm:py-2 py-8'>
-        <h2 className='sm:text-xl text-2xl font-bold mb-4'>{popularAction}</h2>
+        <h2 className='sm:text-lg text-2xl font-bold mb-4'>{popularAction}</h2>
         <MovieList movies={actionMovies} />
       </section>
 
       <section className='sm:py-2 py-8'>
-        <h2 className='sm:text-xl text-2xl font-bold mb-4'>{popularComedy}</h2>
+        <h2 className='sm:text-lg text-2xl font-bold mb-4'>{popularComedy}</h2>
         <MovieList movies={comedyMovies} />
       </section>
 
       <section className='sm:py-2 py-8'>
-        <h2 className='sm:text-xl text-2xl font-bold mb-4'>{popularHorror}</h2>
+        <h2 className='sm:text-lg text-2xl font-bold mb-4'>{popularHorror}</h2>
         <MovieList movies={horrorMovies} />
       </section>
 
       <section className='sm:py-2 py-8'>
-        <h2 className='sm:text-xl text-2xl font-bold mb-4'>{popularDrama}</h2>
+        <h2 className='sm:text-lg text-2xl font-bold mb-4'>{popularDrama}</h2>
         <MovieList movies={dramaMovies} />
       </section>
 
       <section className='sm:py-2 py-8'>
-        <h2 className='sm:text-xl text-2xl font-bold mb-4'>{popularSciFi}</h2>
+        <h2 className='sm:text-lg text-2xl font-bold mb-4'>{popularSciFi}</h2>
         <MovieList movies={scifiMovies} />
       </section>
     </Layout>

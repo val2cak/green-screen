@@ -33,12 +33,12 @@ const Dropdown: FC<Props> = ({ items, onSelect, selectedItem }) => {
   return (
     <div
       ref={ref}
-      className='sm:w-36 w-56 pb-0 relative border-none rounded-md bg-secondary'
+      className='sm:w-full w-56 pb-0 relative border-none rounded-md bg-secondary'
     >
       <div
         onClick={() => setOpen(!open)}
         className={
-          'flex items-center justify-between gap-2 hover:cursor-pointer font-semibold pl-4 pr-2 py-2 sm:w-36 w-56'
+          'flex items-center justify-between gap-2 hover:cursor-pointer font-semibold pl-4 pr-2 py-2 sm:w-full w-56'
         }
       >
         <p
@@ -57,7 +57,7 @@ const Dropdown: FC<Props> = ({ items, onSelect, selectedItem }) => {
       <div
         className={`${
           open ? 'block' : 'hidden'
-        } absolute bg-secondary rounded-md z-50 hover:cursor-pointer left-0 sm:w-36 w-56 max-h-96 overflow-y-auto`}
+        } absolute bg-secondary rounded-md z-50 hover:cursor-pointer left-0 sm:w-full w-56 max-h-96 overflow-y-auto mt-1`}
       >
         {items?.map((item, index) => (
           <div

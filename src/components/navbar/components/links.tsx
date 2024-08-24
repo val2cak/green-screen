@@ -11,7 +11,7 @@ const Links = () => {
   const router = useRouter();
 
   return (
-    <nav className='flex sm:gap-4 gap-9 bg-primary rounded-lg sm:px-8 px-20 py-3 sm:w-full sm:justify-between'>
+    <nav className='sm:relative flex sm:gap-4 gap-9 bg-primary rounded-lg sm:px-8 px-20 py-3 sm:w-full sm:justify-between'>
       {navigationItems.map((link) => (
         <Link
           key={link.id}

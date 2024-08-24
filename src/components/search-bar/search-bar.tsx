@@ -97,10 +97,10 @@ const SearchBar = () => {
 
   return (
     <div
-      className='flex items-center space-x-4 relative'
+      className='sm:w-full flex items-center space-x-4 relative'
       onKeyDown={handleKeyDown}
     >
-      <div className='relative'>
+      <div className='relative sm:w-full'>
         <SearchInput onSearch={handleSearch} />
       </div>
 

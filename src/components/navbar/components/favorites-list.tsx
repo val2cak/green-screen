@@ -16,7 +16,7 @@ const FavoritesList = () => {
   const hasFavorites = favorites.length > 0;
 
   return (
-    <div className='relative'>
+    <div className='sm:static relative'>
       {hasFavorites ? (
         <FullHeartIcon
           className='text-light sm:text-lg text-xl cursor-pointer'

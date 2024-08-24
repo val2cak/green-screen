@@ -18,7 +18,7 @@ const Navbar = () => {
     >
       <Logo />
 
-      <div className='flex sm:flex-col-reverse gap-4 items-center justify-between'>
+      <div className='flex sm:flex-col-reverse gap-4 2xl:gap-40 items-center justify-between'>
         <Links />
 
         <div className='sm:w-full flex items-center gap-4'>

@@ -16,7 +16,7 @@ const Links = () => {
         <Link
           key={link.id}
           href={link.link}
-          className={`text-light text-md 2xl:text-base font-bold ${
+          className={`text-light text-md font-bold ${
             router.pathname === link.link
               ? 'opacity-100 text-tertiary'
               : 'opacity-50 hover:opacity-100'

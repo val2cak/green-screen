@@ -16,16 +16,15 @@ export const useFavoritesStore = create<FavoritesState>()(
       favorites: [],
       addFavorite: (movie) =>
         set((state) => {
-          const newFavorites = [...state.favorites, movie];
-          return { favorites: newFavorites };
+          if (!state.favorites.find((fav) => fav.id === movie.id)) {
+            return { favorites: [...state.favorites, movie] };
+          }
+          return state;
         }),
       removeFavorite: (movieId) =>
-        set((state) => {
-          const newFavorites = state.favorites.filter(
-            (movie) => movie.id !== movieId
-          );
-          return { favorites: newFavorites };
-        }),
+        set((state) => ({
+          favorites: state.favorites.filter((movie) => movie.id !== movieId),
+        })),
       setFavorites: (movies) => set({ favorites: movies }),
     }),
     {

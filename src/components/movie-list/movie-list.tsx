@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from 'react';
+import { FC, memo, useEffect, useRef } from 'react';
 import {
   IoArrowBack as ArrowBack,
   IoArrowForward as ArrowForward,
@@ -87,4 +87,4 @@ const MovieList: FC<Props> = ({ movies }) => {
   );
 };
 
-export default MovieList;
+export default memo(MovieList);

@@ -9,7 +9,7 @@ const Logo = () => {
       <Image
         src={logo.src}
         alt={'green screen'}
-        className='w-80'
+        className='w-80 md:w-64'
         width={320}
         height={120}
       />

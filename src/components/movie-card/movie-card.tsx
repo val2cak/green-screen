@@ -29,10 +29,10 @@ const MovieCard: FC<Props> = ({ movie }) => {
   }, [isFavorite, addFavorite, removeFavorite]);
 
   return (
-    <div className='bg-secondary rounded-lg p-4 shadow-lg sm:w-[150px] w-[224px] flex flex-col gap-4'>
+    <div className='bg-secondary rounded-lg p-4 shadow-lg sm:w-[140px] w-[224px] flex flex-col gap-4'>
       <Link
         href={`/movie/${movie.id}`}
-        className='block sm:w-[120px] w-[192px] sm:h-[160px] h-[274px]'
+        className='block sm:w-[110px] w-[192px] sm:h-[150px] h-[274px]'
       >
         <Image
           src={
@@ -41,7 +41,7 @@ const MovieCard: FC<Props> = ({ movie }) => {
               : posterPlaceholder.src
           }
           alt={movie.title}
-          className='rounded-lg sm:w-[120px] w-[192px] sm:h-[160px] h-[274px]'
+          className='rounded-lg sm:w-[110px] w-[192px] sm:h-[150px] h-[274px]'
           width={192}
           height={274}
           loader={loadImage}

@@ -73,7 +73,7 @@ const FavoritesDropdown: FC<Props> = ({ onClose }) => {
 
   return (
     <div
-      className='absolute outline-none top-10 sm:-right-8 right-0 mt-1 bg-secondary text-light rounded-lg shadow-lg z-50 overflow-y-auto max-h-96 w-80 transition-transform transform'
+      className='absolute outline-none sm:top-12 top-10 right-0 mt-1 bg-secondary text-light rounded-lg shadow-lg z-50 overflow-y-auto max-h-96 sm:w-full w-80 transition-transform transform'
       ref={resultsRef}
       onKeyDown={handleKeyDown}
       tabIndex={0}

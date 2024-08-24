@@ -21,7 +21,7 @@ const Navbar = () => {
       <div className='flex sm:flex-col-reverse gap-4 items-center justify-between'>
         <Links />
 
-        <div className='flex items-center gap-4'>
+        <div className='sm:w-full flex items-center gap-4'>
           <SearchBar />
 
           <div className='sm:hidden'>

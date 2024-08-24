@@ -100,7 +100,7 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
 
   return (
     <Layout>
-      <div className='absolute top-5 left-5 z-30'>
+      <div className='absolute top-5 left-5 z-50'>
         <button
           onClick={() => router.back()}
           className='p-2 bg-primary rounded-lg text-light shadow-lg opacity-90'

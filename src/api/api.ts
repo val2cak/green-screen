@@ -1,11 +1,4 @@
-import axios from 'axios';
-
-const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-  params: {
-    api_key: process.env.NEXT_PUBLIC_TMDB_API_KEY,
-  },
-});
+import api from './config';
 
 export const fetchNowPlayingMovies = async () => {
   const response = await api.get('/movie/now_playing');
@@ -13,7 +6,9 @@ export const fetchNowPlayingMovies = async () => {
 };
 
 export const fetchProviders = async () => {
-  const response = await api.get('/watch/providers/movie?watch_region=GB');
+  const response = await api.get('/watch/providers/movie', {
+    params: { watch_region: 'HR' },
+  });
   return response.data;
 };
 
@@ -33,7 +28,7 @@ export const fetchTopMoviesByProvider = async (providerId: number) => {
       sort_by: 'popularity.desc',
       page: 1,
       with_watch_providers: providerId,
-      watch_region: 'GB',
+      watch_region: 'HR',
     },
   });
   return response.data;
@@ -90,9 +85,4 @@ export const fetchMovieDetails = async (id: string | string[] | undefined) => {
     },
   });
   return response.data;
-};
-
-export const fetchSimilarMovies = async (id: string | string[] | undefined) => {
-  const response = await api.get(`/movie/${id}/similar`);
-  return response.data.results;
 };

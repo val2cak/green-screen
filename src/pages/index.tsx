@@ -7,7 +7,7 @@ import {
   fetchProviders,
   fetchMoviesByGenre,
   fetchTopMoviesByProvider,
-} from '@/utils/api';
+} from '@/api/api';
 import MovieList from '@/components/movie-list/movie-list';
 import Cover from './cover';
 import MovieCard from '@/components/movie-card/movie-card';

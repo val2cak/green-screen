@@ -1,24 +1,94 @@
+# Next.js Green Screen App
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## Table of Contents
+
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Running the Development Server](#running-the-development-server)
+  - [Environment Variables](#environment-variables)
+- [Docker Setup](#docker-setup)
+- [Learn More](#learn-more)
+- [Deploy on Vercel](#deploy-on-vercel)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Ensure you have the following installed:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [Node.js](https://nodejs.org/) (version 14.x or later)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+- [Docker](https://www.docker.com/get-started) (if using Docker)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-username/your-repo-name.git
+   cd your-repo-name
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+   or
+
+   ```bash
+   yarn install
+   ```
+
+### Running the Development Server
+
+1. Create a .env.local file in the root directory with your API credentials:
+
+   ```bash
+   NEXT_PUBLIC_BASE_URL=https://api.themoviedb.org/3
+   NEXT_PUBLIC_TMDB_API_KEY=your_tmdb_api_key_here
+   ```
+
+2. Run the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+   or
+
+   ```bash
+   yarn dev
+   ```
+
+3. Open http://localhost:3000 in your browser to view the app.
+
+### Environment Variables
+
+    NEXT_PUBLIC_BASE_URL: Base URL for the API.
+    NEXT_PUBLIC_TMDB_API_KEY: API key for accessing the movie database.
+
+## Docker Setup
+
+To build and run the app using Docker Compose:
+
+1. Build the Docker image:
+
+   ```bash
+   docker-compose build
+   ```
+
+2. Start the Docker container:
+
+   ```bash
+   docker-compose up
+   ```
+
+The application will be available at http://localhost:3000.
 
 ## Learn More
 

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import { fetchMoviesWithFilters } from '@/utils/api';
+import { fetchMoviesWithFilters } from '@/api/api';
 import MovieCard from '@/components/movie-card/movie-card';
 import Filters from './components/filters';
 import { FiltersType } from '@/types/movie-types';

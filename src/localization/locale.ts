@@ -45,7 +45,6 @@ const locale = {
     duration: 'Duration',
     country: 'Country',
     director: 'Director',
-    youMightLike: 'You might also like',
   },
   pageNotFound: {
     title: 'Page not found',

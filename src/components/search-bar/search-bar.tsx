@@ -4,7 +4,7 @@ import debounce from 'lodash/debounce';
 import Link from 'next/link';
 
 import { loadImage } from '@/utils/load-img';
-import { searchMovies } from '@/utils/api';
+import { searchMovies } from '@/api/api';
 import SearchInput from '@/components/search-bar/components/search-input';
 import posterPlaceholder from '/public/images/poster-placeholder.jpg';
 import Loader from '../loader/loader';

@@ -26,7 +26,7 @@ const MovieCard: FC<Props> = ({ movie }) => {
     } else {
       addFavorite(movie);
     }
-  }, [isFavorite, addFavorite, removeFavorite]);
+  }, [isFavorite, addFavorite, removeFavorite, movie]);
 
   return (
     <div className='bg-secondary rounded-lg p-4 shadow-lg sm:w-[140px] w-[224px] flex flex-col gap-4'>

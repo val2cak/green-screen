@@ -8,7 +8,7 @@ import {
   fetchGenres,
   fetchOldestMovieYear,
   fetchNewestMovieYear,
-} from '@/utils/api';
+} from '@/api/api';
 import locale from '@/localization/locale';
 
 type FiltersProps = {

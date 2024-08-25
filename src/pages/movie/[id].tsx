@@ -19,24 +19,22 @@ import {
 } from 'react-icons/io5';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { useMediaQuery } from 'react-responsive';
 
-import { fetchMovieDetails, fetchSimilarMovies } from '@/utils/api';
+import { fetchMovieDetails } from '@/api/api';
 import { loadImage } from '@/utils/load-img';
-import { MovieDetailsType, CreditType, MovieType } from '@/types/movie-types';
-import MovieList from '@/components/movie-list/movie-list';
+import { MovieDetailsType, CreditType } from '@/types/movie-types';
 import posterPlaceholder from '/public/images/poster-placeholder.jpg';
 import bannerPlaceholder from '/public/images/banner-placeholder.jpg';
 import creditPlaceholder from '/public/images/credit-placeholder.jpg';
 import locale from '@/localization/locale';
 import { useFavoritesStore } from '@/store/favorites-store';
-import { useMediaQuery } from 'react-responsive';
 
 type MovieDetailsProps = {
   movie: MovieDetailsType;
-  similarMovies: MovieType[];
 };
 
-const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
+const MovieDetails: FC<MovieDetailsProps> = ({ movie }) => {
   const Layout = dynamic(() => import('@/components/layout/layout'), {
     ssr: false,
   });
@@ -64,7 +62,7 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
     } else {
       addFavorite(movie);
     }
-  }, [isFavorite, movie.id, addFavorite, removeFavorite]);
+  }, [isFavorite, movie, addFavorite, removeFavorite]);
 
   const {
     as,
@@ -76,7 +74,6 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
     genre,
     releasedYear,
     score,
-    youMightLike,
   } = locale.movie;
 
   const handleNextPage = () => {
@@ -289,15 +286,6 @@ const MovieDetails: FC<MovieDetailsProps> = ({ movie, similarMovies }) => {
           </div>
         </div>
       </div>
-
-      {similarMovies.length !== 0 && (
-        <div className='sm:px-8 md:px-12 lg:px-16 px-40 sm:py-4 py-8'>
-          <h2 className='sm:text-lg text-xl font-bold mb-4 capitalize'>
-            {youMightLike}
-          </h2>
-          <MovieList movies={similarMovies} />
-        </div>
-      )}
     </Layout>
   );
 };
@@ -306,12 +294,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.query;
 
   const movie = await fetchMovieDetails(id);
-  const similarMovies = await fetchSimilarMovies(id);
 
   return {
     props: {
       movie,
-      similarMovies,
     },
   };
 };

@@ -44,8 +44,6 @@ Ensure you have the following installed:
    yarn install
    ```
 
-   d
-
 ### Running the Development Server
 
 1. Create a .env.local file in the root directory with your API credentials:

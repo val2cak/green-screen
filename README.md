@@ -34,24 +34,38 @@ Ensure you have the following installed:
 
 2. Install dependencies:
 
+   ```bash
    npm install
+   ```
 
-   # or
+   or
 
+   ```bash
    yarn install
+   ```
+
+   d
 
 ### Running the Development Server
 
 1. Create a .env.local file in the root directory with your API credentials:
+
+   ```bash
    NEXT_PUBLIC_BASE_URL=https://api.themoviedb.org/3
    NEXT_PUBLIC_TMDB_API_KEY=your_tmdb_api_key_here
+   ```
 
 2. Run the development server:
+
+   ```bash
    npm run dev
+   ```
 
-   # or
+   or
 
+   ```bash
    yarn dev
+   ```
 
 3. Open http://localhost:3000 in your browser to view the app.
 
@@ -66,11 +80,15 @@ To build and run the app using Docker Compose:
 
 1. Build the Docker image:
 
+   ```bash
    docker-compose build
+   ```
 
 2. Start the Docker container:
 
+   ```bash
    docker-compose up
+   ```
 
 The application will be available at http://localhost:3000.
 
